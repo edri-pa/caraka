@@ -21,7 +21,7 @@ Route::get('/uji-peran/admin', fn () => 'Halaman admin')
 
 Route::get('/dashboard', function () {
     $destinations = [
-        'dispatcher' => '/uji-peran/dispatcher',
+        'dispatcher' => '/dispatcher/laporan',
         'responder' => '/uji-peran/responder',
         'admin' => '/uji-peran/admin',
     ];
@@ -45,3 +45,8 @@ Route::get('/lapor/{reference}', [\App\Http\Controllers\IncidentReportController
     ->where('reference', '[A-Z0-9]{10}')
     ->middleware('throttle:30,1')
     ->name('lapor.show');
+
+// Dashboard dispatcher.
+Route::get('/dispatcher/laporan', [\App\Http\Controllers\DispatcherIncidentController::class, 'index'])
+    ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispatcher,admin'])
+    ->name('dispatcher.laporan');

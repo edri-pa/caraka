@@ -58,7 +58,7 @@ class RoleAccessTest extends TestCase
     public static function pengarah(): array
     {
         return [
-            'dispatcher' => ['dispatcher', '/uji-peran/dispatcher'],
+            'dispatcher' => ['dispatcher', '/dispatcher/laporan'],
             'responder'  => ['responder', '/uji-peran/responder'],
             'admin'      => ['admin', '/uji-peran/admin'],
         ];
