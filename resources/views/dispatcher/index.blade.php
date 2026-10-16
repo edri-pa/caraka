@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laporan Masuk | Caraka</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @vite(['resources/js/app.js'])
     <style>
         body { font-family: sans-serif; margin: 0; padding: 16px; background: #f4f4f5; }
         header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
@@ -27,7 +29,7 @@
         button { padding: 6px 12px; cursor: pointer; }
     </style>
 </head>
-<body>
+<body data-channel="dispatch" data-signature="{{ $signature }}" data-ringkasan-url="{{ route('dispatcher.ringkasan') }}">
 @php
     $labels = [
         'baru' => 'Baru', 'diverifikasi' => 'Diverifikasi', 'ditugaskan' => 'Ditugaskan',
@@ -46,6 +48,11 @@
         <button type="submit">Keluar</button>
     </form>
 </header>
+
+<div id="banner-pembaruan" hidden style="background:#dbeafe;color:#1e40af;padding:10px;border-radius:4px;margin:8px 0;">
+    Ada pembaruan laporan. <button type="button" id="muat-ulang">Muat ulang</button>
+</div>
+<p id="status-koneksi" class="kecil">Real-time: menghubungkan...</p>
 
 <nav class="filter">
     @foreach ($filters as $f)
@@ -110,5 +117,46 @@
     @if ($incidents->previousPageUrl())<a href="{{ $incidents->previousPageUrl() }}">&laquo; Sebelumnya</a>@endif
     @if ($incidents->nextPageUrl())<a href="{{ $incidents->nextPageUrl() }}">Berikutnya &raquo;</a>@endif
 </div>
+<script>
+(function () {
+    var banner = document.getElementById('banner-pembaruan');
+    var koneksi = document.getElementById('status-koneksi');
+    var channel = document.body.getAttribute('data-channel');
+    var signature = document.body.getAttribute('data-signature');
+    var ringkasanUrl = document.body.getAttribute('data-ringkasan-url');
+
+    document.getElementById('muat-ulang').addEventListener('click', function () { window.location.reload(); });
+
+    function tampilkanBanner() { banner.hidden = false; }
+    function setKoneksi(teks) { koneksi.textContent = teks; }
+
+    window.addEventListener('load', function () {
+        if (!window.Echo || !channel) {
+            setKoneksi('Real-time tidak aktif. Pengecekan berkala berjalan.');
+            return;
+        }
+        try {
+            var ch = window.Echo.private(channel);
+            ch.listen('.incident.updated', function () { tampilkanBanner(); });
+            if (ch.subscribed) { ch.subscribed(function () { setKoneksi('Real-time aktif'); }); }
+            if (ch.error) { ch.error(function () { setKoneksi('Real-time gagal. Pengecekan berkala berjalan.'); }); }
+        } catch (e) {
+            setKoneksi('Real-time gagal. Pengecekan berkala berjalan.');
+        }
+    });
+
+    // Cadangan: tanya server tiap 30 detik, hanya saat tab terlihat.
+    setInterval(function () {
+        if (document.hidden) { return; }
+        fetch(ringkasanUrl, {
+            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+            credentials: 'same-origin'
+        })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (d) { if (d && d.signature && d.signature !== signature) { tampilkanBanner(); } })
+            .catch(function () {});
+    }, 30000);
+})();
+</script>
 </body>
 </html>

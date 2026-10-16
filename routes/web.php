@@ -62,3 +62,7 @@ Route::middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispa
         Route::post('/laporan/{id}/instansi', [\App\Http\Controllers\StaffIncidentController::class, 'assignAgency'])
             ->whereNumber('id')->name('staf.laporan.instansi');
     });
+
+Route::get('/dispatcher/laporan/ringkasan', [\App\Http\Controllers\DispatcherIncidentController::class, 'summary'])
+    ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispatcher,admin'])
+    ->name('dispatcher.ringkasan');

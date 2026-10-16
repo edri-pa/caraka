@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laporan {{ $incident->reference }} | Caraka</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @vite(['resources/js/app.js'])
     <style>
         body { font-family: sans-serif; margin: 0; padding: 16px; background: #f4f4f5; }
         main { max-width: 760px; margin: auto; }
@@ -22,8 +24,14 @@
         .atas { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .kecil { font-size: 12px; color: #555; }
     </style>
+@php
+    $authUser = auth()->user();
+    $liveChannel = in_array($authUser->role, ['dispatcher', 'admin'], true)
+        ? 'dispatch'
+        : ($authUser->agency_id ? 'agency.'.$authUser->agency_id : '');
+@endphp
 </head>
-<body>
+<body data-channel="{{ $liveChannel }}" data-incident-id="{{ $incident->id }}">
 @php
     $labels = [
         'baru' => 'Baru', 'diverifikasi' => 'Diverifikasi', 'ditugaskan' => 'Ditugaskan',
@@ -47,6 +55,10 @@
     </div>
 
     <h1>{{ $incident->reference }}</h1>
+
+<div id="banner-pembaruan" hidden style="background:#dbeafe;color:#1e40af;padding:10px;border-radius:4px;margin:8px 0;">
+    Laporan ini diperbarui. <button type="button" id="muat-ulang">Muat ulang</button>
+</div>
 
     @if (session('sukses'))
         <div class="sukses">{{ session('sukses') }}</div>
@@ -177,5 +189,23 @@
         </table>
     </section>
 </main>
+<script>
+(function () {
+    var channel = document.body.getAttribute('data-channel');
+    var incidentId = parseInt(document.body.getAttribute('data-incident-id'), 10);
+    var banner = document.getElementById('banner-pembaruan');
+
+    document.getElementById('muat-ulang').addEventListener('click', function () { window.location.reload(); });
+
+    window.addEventListener('load', function () {
+        if (!window.Echo || !channel) { return; }
+        try {
+            window.Echo.private(channel).listen('.incident.updated', function (e) {
+                if (e && parseInt(e.incident_id, 10) === incidentId) { banner.hidden = false; }
+            });
+        } catch (err) {}
+    });
+})();
+</script>
 </body>
 </html>

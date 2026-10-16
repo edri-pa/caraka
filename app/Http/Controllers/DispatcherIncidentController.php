@@ -60,6 +60,23 @@ class DispatcherIncidentController
             'filter' => $filter,
             'filters' => self::FILTERS,
             'activeCount' => collect(self::ACTIVE)->sum(fn ($status) => (int) ($counts[$status] ?? 0)),
+            'signature' => $this->signature(),
         ]);
+    }
+
+    public function summary(): \Illuminate\Http\JsonResponse
+    {
+        return response()
+            ->json(['signature' => $this->signature()])
+            ->header('Cache-Control', 'no-store');
+    }
+
+    // Tanda perubahan: jumlah laporan dan nomor log terakhir. Tanpa data pribadi.
+    private function signature(): string
+    {
+        $total = DB::table('incidents')->count();
+        $logTerakhir = (int) DB::table('incident_logs')->max('id');
+
+        return $total.'|'.$logTerakhir;
     }
 }
