@@ -34,3 +34,14 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 Route::get('/uji-keluar', fn () => view('uji-keluar'))->middleware('auth');
+
+// Pelaporan warga (tanpa login).
+Route::get('/lapor', [\App\Http\Controllers\IncidentReportController::class, 'create'])
+    ->name('lapor.create');
+Route::post('/lapor', [\App\Http\Controllers\IncidentReportController::class, 'store'])
+    ->middleware('throttle:20,1')
+    ->name('lapor.store');
+Route::get('/lapor/{reference}', [\App\Http\Controllers\IncidentReportController::class, 'show'])
+    ->where('reference', '[A-Z0-9]{10}')
+    ->middleware('throttle:30,1')
+    ->name('lapor.show');
