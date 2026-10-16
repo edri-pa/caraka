@@ -19,7 +19,7 @@ class IncidentTrustScorer
         $score = self::BASE;
 
         if ($hasGps) {
-            $score += 40;
+            $score += 30;
 
             if ($accuracyMeters !== null) {
                 if ($accuracyMeters <= 50) {
