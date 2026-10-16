@@ -101,6 +101,9 @@ class IncidentReportController
             return $reference;
         });
 
+        $incidentId = (int) DB::table('incidents')->where('reference', $reference)->value('id');
+        app(\App\Services\IncidentBroadcaster::class)->notify($incidentId, 'baru');
+
         return redirect()->route('lapor.show', $reference)->with('baru', true);
     }
 

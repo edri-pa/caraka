@@ -100,6 +100,8 @@ class StaffIncidentController
             return redirect()->route('staf.laporan.show', $id)->withErrors(['aksi' => $e->getMessage()]);
         }
 
+        app(\App\Services\IncidentBroadcaster::class)->notify($id, 'status');
+
         return redirect()->route('staf.laporan.show', $id)->with('sukses', 'Status laporan diperbarui.');
     }
 
@@ -120,6 +122,8 @@ class StaffIncidentController
         } catch (InvalidWorkflowAction $e) {
             return redirect()->route('staf.laporan.show', $id)->withErrors(['aksi' => $e->getMessage()]);
         }
+
+        app(\App\Services\IncidentBroadcaster::class)->notify($id, 'instansi');
 
         return redirect()->route('staf.laporan.show', $id)->with('sukses', 'Instansi diperbarui.');
     }
