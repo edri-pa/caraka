@@ -50,3 +50,15 @@ Route::get('/lapor/{reference}', [\App\Http\Controllers\IncidentReportController
 Route::get('/dispatcher/laporan', [\App\Http\Controllers\DispatcherIncidentController::class, 'index'])
     ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispatcher,admin'])
     ->name('dispatcher.laporan');
+
+// Detail laporan untuk staf (hak akses per peran diperiksa di controller).
+Route::middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispatcher,admin,responder'])
+    ->prefix('staf')
+    ->group(function () {
+        Route::get('/laporan/{id}', [\App\Http\Controllers\StaffIncidentController::class, 'show'])
+            ->whereNumber('id')->name('staf.laporan.show');
+        Route::post('/laporan/{id}/status', [\App\Http\Controllers\StaffIncidentController::class, 'updateStatus'])
+            ->whereNumber('id')->name('staf.laporan.status');
+        Route::post('/laporan/{id}/instansi', [\App\Http\Controllers\StaffIncidentController::class, 'assignAgency'])
+            ->whereNumber('id')->name('staf.laporan.instansi');
+    });

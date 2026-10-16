@@ -80,7 +80,7 @@
                 @endphp
                 <tr>
                     <td class="prio-{{ $i->priority_score }}">{{ $i->priority_score }}</td>
-                    <td>{{ $i->reference }}</td>
+                    <td><a href="{{ route('staf.laporan.show', $i->id) }}">{{ $i->reference }}</a></td>
                     <td><span class="lencana st-{{ $i->status }}">{{ $labels[$i->status] ?? $i->status }}</span></td>
                     <td>{{ $i->category }}</td>
                     <td>
