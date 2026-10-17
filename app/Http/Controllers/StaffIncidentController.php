@@ -31,7 +31,7 @@ class StaffIncidentController
             ->selectRaw(
                 'incidents.id, incidents.reference, incidents.status, incidents.reported_at, incidents.closed_at,
                  incidents.trust_score, incidents.priority_score, incidents.location_source, incidents.location_accuracy_m,
-                 incidents.landmark_text, incidents.reporter_phone, incidents.description,
+                 incidents.landmark_text, incidents.reporter_phone, incidents.description, incidents.has_casualty,
                  categories.name as category, districts.name as district,
                  ST_Y(incidents.location::geometry) as lat, ST_X(incidents.location::geometry) as lng'
             )
@@ -77,6 +77,9 @@ class StaffIncidentController
                 ? DB::table('agencies')->orderBy('name')->get(['id', 'name', 'type'])
                 : collect(),
             'canGoBack' => $this->canAssign($user),
+            'suggestions' => $canAssign
+                ? app(\App\Services\AgencyRoutingSuggester::class)->suggest($id)
+                : [],
         ]);
     }
 
@@ -126,6 +129,33 @@ class StaffIncidentController
         app(\App\Services\IncidentBroadcaster::class)->notify($id, 'instansi');
 
         return redirect()->route('staf.laporan.show', $id)->with('sukses', 'Instansi diperbarui.');
+    }
+
+    public function applySuggestions(Request $request, int $id): RedirectResponse
+    {
+        $user = $request->user();
+        $this->ensureAccess($user, $id);
+
+        abort_unless($this->canAssign($user), 403, 'Hanya dispatcher atau admin yang boleh menerapkan saran.');
+
+        $suggestions = app(\App\Services\AgencyRoutingSuggester::class)->suggest($id);
+
+        if ($suggestions === []) {
+            return redirect()->route('staf.laporan.show', $id)
+                ->withErrors(['aksi' => 'Tidak ada saran instansi yang bisa diterapkan.']);
+        }
+
+        try {
+            foreach ($suggestions as $saran) {
+                $this->workflow->assignAgency($id, $saran['agency_id'], $saran['role'], $user->id);
+            }
+        } catch (InvalidWorkflowAction $e) {
+            return redirect()->route('staf.laporan.show', $id)->withErrors(['aksi' => $e->getMessage()]);
+        }
+
+        app(\App\Services\IncidentBroadcaster::class)->notify($id, 'instansi');
+
+        return redirect()->route('staf.laporan.show', $id)->with('sukses', 'Saran instansi diterapkan.');
     }
 
     private function canAssign(User $user): bool

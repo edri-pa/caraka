@@ -22,7 +22,7 @@ class SchemaCompletenessTest extends TestCase
                 'id', 'reporter_id', 'category_id', 'district_id', 'assigned_agency_id', 'suggested_facility_id',
                 'description', 'landmark_text', 'location', 'location_accuracy_m', 'status', 'trust_score',
                 'priority_score', 'in_pilot_area', 'photo_path', 'reported_at', 'closed_at',
-                'reference', 'reporter_phone', 'location_source',
+                'reference', 'reporter_phone', 'location_source', 'has_casualty',
             ]],
             'incident_logs' => ['incident_logs', ['id', 'incident_id', 'user_id', 'action', 'from_status', 'to_status', 'note', 'created_at']],
             'incident_agencies' => ['incident_agencies', ['id', 'incident_id', 'agency_id', 'role', 'assigned_by', 'assigned_at']],

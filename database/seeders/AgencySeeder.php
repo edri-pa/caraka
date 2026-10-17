@@ -14,7 +14,6 @@ class AgencySeeder extends Seeder
             ['name' => 'Pemadam Kebakaran Temanggung', 'type' => 'damkar', 'phone' => 'DEMO-0002'],
             ['name' => 'Kepolisian Temanggung',        'type' => 'polisi', 'phone' => 'DEMO-0003'],
             ['name' => 'BPBD Kabupaten Temanggung',    'type' => 'bpbd',   'phone' => 'DEMO-0004'],
-            ['name' => 'Tim SAR Temanggung',           'type' => 'sar',    'phone' => 'DEMO-0005'],
         ];
 
         foreach ($agencies as $agency) {

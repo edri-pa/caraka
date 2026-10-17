@@ -60,6 +60,13 @@
         <label for="description">Keterangan singkat (opsional)</label>
         <textarea id="description" name="description" maxlength="1000">{{ old('description') }}</textarea>
 
+        <label for="has_casualty">Ada korban luka?</label>
+        <select id="has_casualty" name="has_casualty">
+            <option value="">Tidak tahu</option>
+            <option value="1" @selected(old('has_casualty') === '1')>Ya, ada korban luka</option>
+            <option value="0" @selected(old('has_casualty') === '0')>Tidak ada korban luka</option>
+        </select>
+
         <fieldset>
             <legend>Lokasi</legend>
             <button type="button" id="gps-btn">Ambil lokasi GPS</button>
@@ -100,7 +107,7 @@
     var acc = document.getElementById('accuracy');
     var pesan = document.getElementById('pesan-klien');
     var kirim = document.getElementById('kirim');
-    var fields = ['category_id', 'description', 'district_id', 'landmark_text'];
+    var fields = ['category_id', 'description', 'district_id', 'landmark_text', 'has_casualty'];
 
     function muatDraf() {
         try {

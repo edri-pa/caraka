@@ -82,6 +82,8 @@
             <dd>{{ $incident->priority_score }} (1 sampai 5)</dd>
             <dt>Skor kepercayaan</dt>
             <dd>{{ $incident->trust_score }} (saran, bukan keputusan)</dd>
+            <dt>Korban luka</dt>
+            <dd>@if ($incident->has_casualty === null) Tidak diketahui @elseif ($incident->has_casualty) Ya @else Tidak ada @endif</dd>
             <dt>Keterangan</dt>
             <dd>{{ $incident->description ?: '-' }}</dd>
             <dt>Nomor HP pelapor</dt>
@@ -132,6 +134,20 @@
                     <li>{{ $agency->name }} ({{ $agency->type }}) &mdash; {{ $agency->role }}</li>
                 @endforeach
             </ul>
+        @endif
+
+        @if ($canAssign && count($suggestions) > 0)
+            <h2>Saran instansi</h2>
+            <p class="kecil">Saran sistem berdasarkan jenis kejadian dan adanya korban luka. Keputusan tetap pada dispatcher.</p>
+            <ul>
+                @foreach ($suggestions as $saran)
+                    <li>{{ $saran['name'] }} ({{ $saran['type'] }}) &mdash; {{ $saran['role'] }}</li>
+                @endforeach
+            </ul>
+            <form method="POST" action="{{ route('staf.laporan.saran', $incident->id) }}">
+                @csrf
+                <button type="submit">Terapkan saran</button>
+            </form>
         @endif
 
         @if ($canAssign)

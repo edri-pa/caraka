@@ -61,6 +61,8 @@ Route::middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispa
             ->whereNumber('id')->name('staf.laporan.status');
         Route::post('/laporan/{id}/instansi', [\App\Http\Controllers\StaffIncidentController::class, 'assignAgency'])
             ->whereNumber('id')->name('staf.laporan.instansi');
+        Route::post('/laporan/{id}/saran', [\App\Http\Controllers\StaffIncidentController::class, 'applySuggestions'])
+            ->whereNumber('id')->name('staf.laporan.saran');
     });
 
 Route::get('/dispatcher/laporan/ringkasan', [\App\Http\Controllers\DispatcherIncidentController::class, 'summary'])

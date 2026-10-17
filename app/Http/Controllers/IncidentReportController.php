@@ -39,6 +39,7 @@ class IncidentReportController
             'latitude' => ['nullable', 'required_with:longitude', 'numeric', 'between:-90,90'],
             'longitude' => ['nullable', 'required_with:latitude', 'numeric', 'between:-180,180'],
             'accuracy' => ['nullable', 'numeric', 'min:0', 'max:1000000'],
+            'has_casualty' => ['nullable', 'in:1,0'],
             'district_id' => ['nullable', 'required_without:latitude', 'integer', 'exists:districts,id'],
             'landmark_text' => ['nullable', 'required_without:latitude', 'string', 'max:255'],
         ], [
@@ -57,9 +58,18 @@ class IncidentReportController
             ->count();
 
         $trust = $scorer->score($hasGps, $hasGps ? $accuracy : null, $phone !== null, $recent);
+        $hasCasualty = match ((string) ($data['has_casualty'] ?? '')) {
+            '1' => true,
+            '0' => false,
+            default => null,
+        };
         $priority = (int) DB::table('categories')->where('id', $data['category_id'])->value('base_priority');
 
-        $reference = DB::transaction(function () use ($data, $hasGps, $phone, $accuracy, $trust, $priority) {
+        if ($hasCasualty === true) {
+            $priority = min(5, $priority + 1);
+        }
+
+        $reference = DB::transaction(function () use ($data, $hasGps, $phone, $accuracy, $trust, $priority, $hasCasualty) {
             $reference = $this->newReference();
 
             $location = $hasGps
@@ -83,6 +93,7 @@ class IncidentReportController
                 'status' => 'baru',
                 'trust_score' => $trust,
                 'priority_score' => $priority,
+                'has_casualty' => $hasCasualty,
                 'reported_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now(),
