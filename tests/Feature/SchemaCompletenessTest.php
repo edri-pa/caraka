@@ -17,7 +17,7 @@ class SchemaCompletenessTest extends TestCase
             'agencies' => ['agencies', ['id', 'name', 'type', 'phone', 'is_demo']],
             'categories' => ['categories', ['id', 'parent_id', 'name', 'slug', 'base_priority', 'default_agency_type']],
             'districts' => ['districts', ['id', 'name', 'code', 'boundary']],
-            'facilities' => ['facilities', ['id', 'agency_id', 'district_id', 'name', 'type', 'region', 'location', 'phone', 'is_24h', 'has_igd', 'is_active', 'is_demo']],
+            'facilities' => ['facilities', ['id', 'agency_id', 'district_id', 'name', 'type', 'region', 'location', 'phone', 'is_24h', 'has_igd', 'is_active', 'is_demo', 'source', 'verified_at']],
             'incidents' => ['incidents', [
                 'id', 'reporter_id', 'category_id', 'district_id', 'assigned_agency_id', 'suggested_facility_id',
                 'description', 'landmark_text', 'location', 'location_accuracy_m', 'status', 'trust_score',
