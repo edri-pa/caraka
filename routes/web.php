@@ -5,25 +5,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/uji-reverb', fn () => view('uji-reverb'));
-Route::get('/uji-gps', fn () => view('uji-gps'));
-
-
-// Rute uji pembatasan peran (sementara, dihapus sebelum deploy).
-Route::get('/uji-peran/dispatcher', fn () => 'Halaman dispatcher')
-    ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispatcher,admin']);
-
-Route::get('/uji-peran/responder', fn () => 'Halaman responder')
-    ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':responder,admin']);
-
-Route::get('/uji-peran/admin', fn () => 'Halaman admin')
-    ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':admin']);
 
 Route::get('/dashboard', function () {
     $destinations = [
         'dispatcher' => '/dispatcher/laporan',
-        'responder' => '/uji-peran/responder',
-        'admin' => '/uji-peran/admin',
+        'responder' => '/responder/tugas',
+        'admin' => '/dispatcher/laporan',
     ];
 
     $target = $destinations[auth()->user()->role] ?? null;
@@ -32,8 +19,6 @@ Route::get('/dashboard', function () {
 
     return redirect($target);
 })->middleware('auth');
-
-Route::get('/uji-keluar', fn () => view('uji-keluar'))->middleware('auth');
 
 // Pelaporan warga (tanpa login).
 Route::get('/lapor', [\App\Http\Controllers\IncidentReportController::class, 'create'])
@@ -68,3 +53,8 @@ Route::middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispa
 Route::get('/dispatcher/laporan/ringkasan', [\App\Http\Controllers\DispatcherIncidentController::class, 'summary'])
     ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispatcher,admin'])
     ->name('dispatcher.ringkasan');
+
+// Daftar tugas responder.
+Route::get('/responder/tugas', [\App\Http\Controllers\ResponderTaskController::class, 'index'])
+    ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':responder'])
+    ->name('responder.tugas');

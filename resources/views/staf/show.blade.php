@@ -46,7 +46,7 @@
         @if ($canGoBack)
             <a href="{{ route('dispatcher.laporan') }}">&laquo; Daftar laporan</a>
         @else
-            <span></span>
+            <a href="{{ route('responder.tugas') }}">&laquo; Tugas saya</a>
         @endif
         <form method="POST" action="{{ route('logout') }}">
             @csrf

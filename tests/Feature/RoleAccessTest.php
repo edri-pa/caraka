@@ -59,8 +59,8 @@ class RoleAccessTest extends TestCase
     {
         return [
             'dispatcher' => ['dispatcher', '/dispatcher/laporan'],
-            'responder'  => ['responder', '/uji-peran/responder'],
-            'admin'      => ['admin', '/uji-peran/admin'],
+            'responder'  => ['responder', '/responder/tugas'],
+            'admin'      => ['admin', '/dispatcher/laporan'],
         ];
     }
 
