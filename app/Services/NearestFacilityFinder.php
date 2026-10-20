@@ -22,6 +22,7 @@ class NearestFacilityFinder
         $query = DB::table('facilities')
             ->selectRaw(
                 'id, name, type, region, phone, is_24h, has_igd, is_demo,
+                 ST_Y(location::geometry) AS lat, ST_X(location::geometry) AS lng,
                  ROUND(ST_Distance(location, ST_SetSRID(ST_MakePoint(CAST(? AS double precision), CAST(? AS double precision)), 4326)::geography)) AS distance_m',
                 [$lng, $lat]
             )

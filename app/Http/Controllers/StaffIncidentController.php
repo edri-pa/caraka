@@ -67,6 +67,8 @@ class StaffIncidentController
         $canAssign = $this->canAssign($user)
             && ! in_array($incident->status, IncidentWorkflow::TERMINAL, true);
 
+        $facilityInfo = app(\App\Services\FacilityRecommender::class)->forIncident($id);
+
         return view('staf.show', [
             'incident' => $incident,
             'agencies' => $agencies,
@@ -76,6 +78,8 @@ class StaffIncidentController
             'agencyOptions' => $canAssign
                 ? DB::table('agencies')->orderBy('name')->get(['id', 'name', 'type'])
                 : collect(),
+            'map' => $facilityInfo['map'],
+            'facilityGroups' => $facilityInfo['groups'],
             'canGoBack' => $this->canAssign($user),
             'suggestions' => $canAssign
                 ? app(\App\Services\AgencyRoutingSuggester::class)->suggest($id)

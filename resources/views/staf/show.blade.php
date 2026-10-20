@@ -125,6 +125,37 @@
     </section>
 
     <section>
+        <h2>Peta dan fasilitas terdekat</h2>
+        @if ($map === null)
+            <p class="kecil">Laporan ini memakai lokasi manual (tanpa koordinat GPS), jadi peta dan jarak tidak tersedia. Gunakan patokan lokasi di atas.</p>
+        @else
+            <div id="peta" style="height: 320px; border-radius: 6px;"></div>
+            <script type="application/json" id="peta-data">@json($map)</script>
+            <p class="kecil">Jarak berupa garis lurus (estimasi kasar). Jarak tempuh sebenarnya bisa jauh lebih panjang, terutama di medan pegunungan. Ini saran, bukan keputusan.</p>
+            @foreach ($facilityGroups as $group)
+                <h2 style="margin-top: 12px;">{{ $group['title'] }}</h2>
+                @if (count($group['items']) === 0)
+                    <p class="kecil">Tidak ada fasilitas dalam radius {{ $group['radius_km'] }} km pada data saat ini.</p>
+                @else
+                    <ul>
+                        @foreach ($group['items'] as $item)
+                            <li>
+                                {{ $item['name'] }} ({{ $item['type'] }})
+                                &mdash; sekitar {{ number_format($item['distance_m'] / 1000, 1, ',', '.') }} km
+                                @if ($item['is_24h']) &middot; 24 jam @endif
+                                @if ($item['has_igd']) &middot; IGD @endif
+                                @if ($item['phone'])
+                                    &middot; {{ $item['phone'] }}@if ($item['is_demo']) (kontak simulasi)@endif
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            @endforeach
+        @endif
+    </section>
+
+    <section>
         <h2>Instansi</h2>
         @if ($agencies->isEmpty())
             <p class="kecil">Belum ada instansi yang ditugaskan.</p>
