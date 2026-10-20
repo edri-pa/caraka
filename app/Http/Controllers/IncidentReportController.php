@@ -83,6 +83,7 @@ class IncidentReportController
             $id = DB::table('incidents')->insertGetId([
                 'reference' => $reference,
                 'reporter_phone' => $phone,
+                'reporter_hash' => app(\App\Services\ReporterIdentity::class)->hash($phone),
                 'category_id' => $data['category_id'],
                 'district_id' => $data['district_id'] ?? null,
                 'description' => $data['description'] ?? null,

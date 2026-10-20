@@ -216,6 +216,49 @@
         </section>
     @endif
 
+    @if ($canMark)
+        <section>
+            <h2>Penandaan dan riwayat pelapor</h2>
+            @if ($reporterHistory === null)
+                <p class="kecil">Pelapor tidak mencantumkan nomor HP, jadi tidak ada riwayat.</p>
+            @else
+                <p>
+                    Laporan lain dari nomor yang sama: {{ $reporterHistory['total'] }},
+                    terverifikasi: {{ $reporterHistory['confirmed'] }},
+                    ditandai sengaja palsu: {{ $reporterHistory['false_flags'] }},
+                    ditandai alasan lain: {{ $reporterHistory['other_flags'] }}.
+                </p>
+                <p class="kecil">Nomor belum diverifikasi OTP, jadi ini informasi pendukung, bukan bukti, dan belum memengaruhi skor kepercayaan.</p>
+            @endif
+
+            @if ($incident->flag_reason)
+                <p>
+                    <strong>Ditandai:</strong> {{ $flagReasons[$incident->flag_reason] ?? $incident->flag_reason }}
+                    @if ($incident->flag_note) &mdash; {{ $incident->flag_note }}@endif
+                </p>
+                @if ($isAdmin)
+                    <form method="POST" action="{{ route('staf.laporan.tanda.hapus', $incident->id) }}">
+                        @csrf
+                        <button type="submit">Hapus penandaan</button>
+                    </form>
+                @endif
+            @else
+                <form method="POST" action="{{ route('staf.laporan.tanda', $incident->id) }}">
+                    @csrf
+                    <select name="reason" required>
+                        <option value="">-- Alasan --</option>
+                        @foreach ($flagReasons as $kode => $label)
+                            <option value="{{ $kode }}">{{ $label }}</option>
+                        @endforeach
+                    </select>
+                    <input type="text" name="note" maxlength="500" placeholder="Catatan (wajib untuk sengaja palsu)">
+                    <button type="submit">Tandai</button>
+                </form>
+                <p class="kecil">Penandaan tidak menolak laporan dan tidak mengubah status. Gunakan hanya bila ada dasar yang jelas.</p>
+            @endif
+        </section>
+    @endif
+
     <section>
         <h2>Riwayat</h2>
         <table>

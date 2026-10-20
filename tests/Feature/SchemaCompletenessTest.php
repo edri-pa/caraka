@@ -23,10 +23,10 @@ class SchemaCompletenessTest extends TestCase
                 'description', 'landmark_text', 'location', 'location_accuracy_m', 'status', 'trust_score',
                 'priority_score', 'in_pilot_area', 'photo_path', 'reported_at', 'closed_at',
                 'reference', 'reporter_phone', 'location_source', 'has_casualty',
+                'reporter_hash', 'flag_reason', 'flagged_by', 'flagged_at', 'flag_note',
             ]],
             'incident_logs' => ['incident_logs', ['id', 'incident_id', 'user_id', 'action', 'from_status', 'to_status', 'note', 'created_at']],
             'incident_agencies' => ['incident_agencies', ['id', 'incident_id', 'agency_id', 'role', 'assigned_by', 'assigned_at']],
-            'reporter_flags' => ['reporter_flags', ['id', 'user_id', 'confirmed_count', 'false_count', 'restricted_until']],
             'users' => ['users', ['id', 'name', 'email', 'password', 'role', 'phone', 'phone_verified_at', 'agency_id']],
         ];
     }

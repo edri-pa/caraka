@@ -48,6 +48,10 @@ Route::middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispa
             ->whereNumber('id')->name('staf.laporan.instansi');
         Route::post('/laporan/{id}/saran', [\App\Http\Controllers\StaffIncidentController::class, 'applySuggestions'])
             ->whereNumber('id')->name('staf.laporan.saran');
+        Route::post('/laporan/{id}/tanda', [\App\Http\Controllers\StaffIncidentController::class, 'flag'])
+            ->whereNumber('id')->name('staf.laporan.tanda');
+        Route::post('/laporan/{id}/tanda/hapus', [\App\Http\Controllers\StaffIncidentController::class, 'clearFlag'])
+            ->whereNumber('id')->name('staf.laporan.tanda.hapus');
     });
 
 Route::get('/dispatcher/laporan/ringkasan', [\App\Http\Controllers\DispatcherIncidentController::class, 'summary'])

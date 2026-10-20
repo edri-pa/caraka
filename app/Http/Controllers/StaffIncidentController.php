@@ -31,7 +31,7 @@ class StaffIncidentController
             ->selectRaw(
                 'incidents.id, incidents.reference, incidents.status, incidents.reported_at, incidents.closed_at,
                  incidents.trust_score, incidents.priority_score, incidents.location_source, incidents.location_accuracy_m,
-                 incidents.landmark_text, incidents.reporter_phone, incidents.description, incidents.has_casualty,
+                 incidents.landmark_text, incidents.reporter_phone, incidents.description, incidents.has_casualty, incidents.reporter_hash, incidents.flag_reason, incidents.flag_note, incidents.flagged_at,
                  categories.name as category, districts.name as district,
                  ST_Y(incidents.location::geometry) as lat, ST_X(incidents.location::geometry) as lng'
             )
@@ -80,6 +80,12 @@ class StaffIncidentController
                 : collect(),
             'map' => $facilityInfo['map'],
             'facilityGroups' => $facilityInfo['groups'],
+            'reporterHistory' => ($this->canAssign($user) && $incident->reporter_hash !== null)
+                ? app(\App\Services\ReporterIdentity::class)->historyFor($incident->reporter_hash, $id)
+                : null,
+            'canMark' => $this->canAssign($user),
+            'isAdmin' => $user->role === 'admin',
+            'flagReasons' => \App\Services\IncidentFlagger::REASONS,
             'canGoBack' => $this->canAssign($user),
             'suggestions' => $canAssign
                 ? app(\App\Services\AgencyRoutingSuggester::class)->suggest($id)
@@ -160,6 +166,47 @@ class StaffIncidentController
         app(\App\Services\IncidentBroadcaster::class)->notify($id, 'instansi');
 
         return redirect()->route('staf.laporan.show', $id)->with('sukses', 'Saran instansi diterapkan.');
+    }
+
+    public function flag(Request $request, int $id): RedirectResponse
+    {
+        $user = $request->user();
+        $this->ensureAccess($user, $id);
+
+        abort_unless($this->canAssign($user), 403, 'Hanya dispatcher atau admin yang boleh menandai laporan.');
+
+        $data = $request->validate([
+            'reason' => ['required', Rule::in(array_keys(\App\Services\IncidentFlagger::REASONS))],
+            'note' => ['nullable', 'string', 'max:500'],
+        ]);
+
+        try {
+            app(\App\Services\IncidentFlagger::class)->flag($id, $data['reason'], $data['note'] ?? null, $user->id);
+        } catch (InvalidWorkflowAction $e) {
+            return redirect()->route('staf.laporan.show', $id)->withErrors(['aksi' => $e->getMessage()]);
+        }
+
+        app(\App\Services\IncidentBroadcaster::class)->notify($id, 'status');
+
+        return redirect()->route('staf.laporan.show', $id)->with('sukses', 'Laporan ditandai.');
+    }
+
+    public function clearFlag(Request $request, int $id): RedirectResponse
+    {
+        $user = $request->user();
+        $this->ensureAccess($user, $id);
+
+        abort_unless($user->role === 'admin', 403, 'Hanya admin yang boleh menghapus penandaan.');
+
+        try {
+            app(\App\Services\IncidentFlagger::class)->clear($id, $user->id);
+        } catch (InvalidWorkflowAction $e) {
+            return redirect()->route('staf.laporan.show', $id)->withErrors(['aksi' => $e->getMessage()]);
+        }
+
+        app(\App\Services\IncidentBroadcaster::class)->notify($id, 'status');
+
+        return redirect()->route('staf.laporan.show', $id)->with('sukses', 'Penandaan dihapus.');
     }
 
     private function canAssign(User $user): bool
