@@ -62,3 +62,12 @@ Route::get('/dispatcher/laporan/ringkasan', [\App\Http\Controllers\DispatcherInc
 Route::get('/responder/tugas', [\App\Http\Controllers\ResponderTaskController::class, 'index'])
     ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':responder'])
     ->name('responder.tugas');
+
+// Jalur SOS satu ketukan (tanpa login).
+Route::get('/sos', [\App\Http\Controllers\SosController::class, 'create'])->name('sos.create');
+Route::post('/sos', [\App\Http\Controllers\SosController::class, 'store'])
+    ->middleware('throttle:10,1')->name('sos.store');
+Route::get('/sos/terkirim/{reference}', [\App\Http\Controllers\SosController::class, 'sent'])
+    ->where('reference', '[A-Z0-9]{10}')->middleware('throttle:30,1')->name('sos.sent');
+Route::post('/sos/terkirim/{reference}', [\App\Http\Controllers\SosController::class, 'addDetails'])
+    ->where('reference', '[A-Z0-9]{10}')->middleware('throttle:10,1')->name('sos.tambahan');
