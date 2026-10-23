@@ -132,6 +132,7 @@
             <div id="peta" style="height: 320px; border-radius: 6px;"></div>
             <script type="application/json" id="peta-data">@json($map)</script>
             <p class="kecil">Jarak berupa garis lurus (estimasi kasar). Jarak tempuh sebenarnya bisa jauh lebih panjang, terutama di medan pegunungan. Ini saran, bukan keputusan.</p>
+            <p class="kecil"><strong>Data fasilitas belum diverifikasi instansi.</strong> Dikumpulkan dari sumber umum dan bisa usang. Pastikan lewat telepon atau petugas sebelum mengarahkan korban.</p>
             @foreach ($facilityGroups as $group)
                 <h2 style="margin-top: 12px;">{{ $group['title'] }}</h2>
                 @if (count($group['items']) === 0)
@@ -144,6 +145,7 @@
                                 &mdash; sekitar {{ number_format($item['distance_m'] / 1000, 1, ',', '.') }} km
                                 @if ($item['is_24h']) &middot; 24 jam @endif
                                 @if ($item['has_igd']) &middot; IGD @endif
+                                @if ($item['verified_at']) &middot; dicek {{ date('d-m-Y', strtotime($item['verified_at'])) }}@endif
                                 @if ($item['phone'])
                                     &middot; {{ $item['phone'] }}@if ($item['is_demo']) (kontak simulasi)@endif
                                 @endif

@@ -75,6 +75,8 @@ class FacilityRecommender
                     'is_demo' => (bool) $f->is_demo,
                     'lat' => (float) $f->lat,
                     'lng' => (float) $f->lng,
+                    'source' => $f->source,
+                    'verified_at' => $f->verified_at,
                 ])
                 ->all();
 
