@@ -1,1 +1,14 @@
 nama,jenis,wilayah,kecamatan,lintang,bujur,buka_24_jam,ada_igd,kontak,kontak_terverifikasi,sumber,tanggal_cek
+BPBD,kantor_bpbd,Temanggung,Temanggung,-7.294152717,110.181578,ya,tidak,DEMO-08123453257,,googlemap,2026-10-21
+RSUD Temanggung,rumah_sakit,Temanggung,Temanggung,-7.309640431,110.1794641,ya,ya,DEMO-08123453257,,googlemap,2026-10-21
+Pemadam Kebakaran,pos_damkar,Temanggung,Temanggung,-7.297070184,110.1827675,ya,tidak,DEMO-08123453257,,googlemap,2026-10-21
+PKU Muhammadiyah,rumah_sakit,Parakan,Parakan,-7.278913569,110.1183862,ya,ya,DEMO-08123453257,,googlemap,2026-10-21
+RSK Ngesti Waluyo,rumah_sakit,Parakan,Parakan,-7.286616629,110.1052131,ya,ya,DEMO-08123453257,,googlemap,2026-10-21
+RS Gunung Sawo,rumah_sakit,Temanggung,Temanggung,-7.313693228,110.1641186,ya,ya,DEMO-08123453257,,googlemap,2026-10-21
+PMI Temanggung,pmi,Temanggung,Temanggung,-7.313556563,110.1757134,ya,tidak,DEMO-08123453257,,googlemap,2026-10-21
+Pemadam Kebakaran POS Pringsurat,pos_damkar,Pringsurat,Pringsurat,-7.356480446,110.2883225,ya,tidak,DEMO-08123453257,,googlemap,2026-10-21
+POLRES Temanggung,polres,Temanggung,Temanggung,-7.336130214,110.2048889,ya,tidak,DEMO-08123453257,,googlemap,2026-10-21
+POLSEK Temanggung ,polsek,Temanggung,Temanggung,-7.319121276,110.1767764,ya,tidak,DEMO-08123453257,,googlemap,2026-10-21
+PUSKESMAS DHARMO RINI,puskesmas,Temanggung,Temanggung,-7.320442867,110.1774763,ya,tidak,DEMO-08123453257,,googlemap,2026-10-21
+PUSKESMAS BULU,puskesmas,Temanggung,Temanggung,-7.292846616,110.1328451,ya,tidak,DEMO-08123453257,,googlemap,2026-10-21
+Klinik Brasto Molo,klinik,Temanggung,Temanggung,-7.333294851,110.1988768,ya,ya,DEMO-08123453257,,googlemap,2026-10-21
