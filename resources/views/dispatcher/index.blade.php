@@ -54,6 +54,8 @@
 </div>
 <p id="status-koneksi" class="kecil">Real-time: menghubungkan...</p>
 
+<p><a href="{{ route('statistik') }}">Statistik</a></p>
+
 <nav class="filter">
     @foreach ($filters as $f)
         <a href="{{ route('dispatcher.laporan', ['status' => $f]) }}" class="{{ $f === $filter ? 'aktif' : '' }}">{{ $labels[$f] ?? $f }}</a>

@@ -71,3 +71,8 @@ Route::get('/sos/terkirim/{reference}', [\App\Http\Controllers\SosController::cl
     ->where('reference', '[A-Z0-9]{10}')->middleware('throttle:30,1')->name('sos.sent');
 Route::post('/sos/terkirim/{reference}', [\App\Http\Controllers\SosController::class, 'addDetails'])
     ->where('reference', '[A-Z0-9]{10}')->middleware('throttle:10,1')->name('sos.tambahan');
+
+// Statistik untuk dispatcher dan admin.
+Route::get('/statistik', [\App\Http\Controllers\StatisticsController::class, 'index'])
+    ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispatcher,admin'])
+    ->name('statistik');
