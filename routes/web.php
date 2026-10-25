@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('beranda');
 
 Route::get('/dashboard', function () {
     $destinations = [
@@ -76,3 +74,8 @@ Route::post('/sos/terkirim/{reference}', [\App\Http\Controllers\SosController::c
 Route::get('/statistik', [\App\Http\Controllers\StatisticsController::class, 'index'])
     ->middleware(['auth', \App\Http\Middleware\EnsureUserHasRole::class.':dispatcher,admin'])
     ->name('statistik');
+
+// Halaman umum.
+Route::view('/privasi', 'privasi')->name('privasi');
+Route::post('/cek-status', [\App\Http\Controllers\HomeController::class, 'checkStatus'])
+    ->middleware('throttle:20,1')->name('status.cek');

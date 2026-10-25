@@ -96,6 +96,7 @@
         <p id="pesan-klien" class="galat" hidden></p>
         <button type="submit" id="kirim">Kirim laporan</button>
     </form>
+<p style="font-size:13px;color:#555;"><a href="{{ route('privasi') }}">Kebijakan privasi</a></p>
 </main>
 
 <script>

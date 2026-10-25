@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->string('role')->default('warga')->after('password'); // warga, dispatcher, responder, admin
+            $table->string('phone')->nullable()->unique()->after('email');
+            $table->timestamp('phone_verified_at')->nullable()->after('phone');
+            $table->foreignId('agency_id')->nullable()->constrained('agencies')->nullOnDelete();
         });
     }
 
@@ -22,7 +25,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropConstrainedForeignId('agency_id');
+            $table->dropColumn(['role', 'phone', 'phone_verified_at']);
         });
     }
 };

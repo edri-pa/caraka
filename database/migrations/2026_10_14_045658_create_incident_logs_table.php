@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('incident_logs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('incident_id')->constrained(); // tanpa cascade: audit tidak boleh ikut terhapus
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete(); // kosong = tindakan sistem
+            $table->string('action');
+            $table->string('from_status')->nullable();
+            $table->string('to_status')->nullable();
+            $table->text('note')->nullable();
+            $table->timestamp('created_at')->useCurrent(); // sengaja tanpa updated_at: log tidak diubah
+
+            $table->index(['incident_id', 'created_at']);
         });
     }
 

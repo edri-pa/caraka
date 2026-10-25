@@ -34,6 +34,7 @@
         Dalam keadaan darurat sungguhan, segera hubungi PSC 119 (medis) atau 110 (polisi).
     </p>
     <p><a href="{{ route('lapor.create') }}">Lapor dengan keterangan lengkap</a></p>
+<p style="font-size:13px;color:#555;"><a href="{{ route('privasi') }}">Kebijakan privasi</a></p>
 </main>
 
 <script>
