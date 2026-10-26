@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Percayai proxy di depan aplikasi (misalnya Cloudflare Tunnel) agar HTTPS dan IP asli terbaca benar.
         // PENTING: sebelum deploy ke server publik, ganti '*' dengan alamat proxy yang sebenarnya.
         $middleware->trustProxies(at: '*');
+        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
