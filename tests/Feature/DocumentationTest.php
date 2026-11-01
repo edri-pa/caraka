@@ -30,7 +30,7 @@ class DocumentationTest extends TestCase
         $readme = file_get_contents(base_path('README.md'));
         $terdaftar = array_keys(Artisan::all());
 
-        foreach (['fasilitas:impor', 'pengguna:buat', 'laporan:anonimkan', 'keamanan:periksa'] as $perintah) {
+        foreach (['fasilitas:impor', 'pengguna:buat', 'laporan:anonimkan', 'keamanan:periksa', 'gladi:reset'] as $perintah) {
             $this->assertContains($perintah, $terdaftar, $perintah.' tidak terdaftar');
             $this->assertStringContainsString($perintah, $readme, $perintah.' tidak ada di README');
         }

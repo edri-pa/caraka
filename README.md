@@ -4,7 +4,7 @@ Prototype sistem pelaporan kejadian darurat berbasis web dengan satu pintu lapor
 
 **Bukan layanan darurat resmi.** Belum dipakai atau didukung pemerintah daerah mana pun, dan tidak terhubung ke sistem instansi mana pun. Dalam keadaan darurat sungguhan hubungi PSC 119 (medis) atau 110 (polisi).
 
-Penyusun: <nama penyusun>
+Penyusun: EDRIPA
 
 ## Masalah yang ditangani
 
@@ -48,6 +48,7 @@ Aplikasi: http://localhost. Pemasangan dari nol di mesin baru belum diuji ulang.
 | `sail artisan pengguna:buat <email> <nama> --peran=...` | Buat akun petugas |
 | `sail artisan laporan:anonimkan <referensi> --yakin` | Hapus data pribadi satu laporan |
 | `sail artisan keamanan:periksa` | Periksa pengaturan sebelum dibuka ke luar |
+| `sail artisan gladi:reset [--yakin]` | Kosongkan laporan uji sebelum gladi (akun dan data acuan tetap) |
 | `scripts/cadangan-db.sh`, `scripts/pulihkan-db.sh` | Cadangan dan pemulihan database |
 | `sail artisan test` | Jalankan seluruh tes |
 

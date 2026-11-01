@@ -14,7 +14,7 @@ Warga (2 sampai 4 orang, memakai HP), dispatcher (1 orang), responder (1 sampai 
 ## Persiapan
 - Akun peserta: `pengguna:buat` (kata sandi berbeda tiap orang), dihapus setelah gladi.
 - Laptop, tunnel, dan Reverb menyala; `sail npm run build` dijalankan bila dashboard dibuka dari perangkat lain.
-- Bersihkan laporan uji sebelum mulai agar statistik hanya memuat gladi ini.
+- Buat cadangan, lalu jalankan `sail artisan gladi:reset --yakin` agar statistik hanya memuat gladi ini.
 - Siapkan cadangan database sebelum dan sesudah.
 
 ## Skenario (contoh)
