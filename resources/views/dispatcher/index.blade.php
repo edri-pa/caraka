@@ -74,7 +74,7 @@
                     <th>Status</th>
                     <th>Jenis</th>
                     <th>Lokasi</th>
-                    <th>Kepercayaan</th>
+                    <th title="Menilai kelengkapan sinyal (GPS, akurasi, nomor HP), bukan kebenaran isi laporan">Skor sinyal</th>
                     <th>Keterangan</th>
                     <th>Nomor HP</th>
                     <th>Waktu</th>
@@ -106,7 +106,15 @@
                     <td>{{ $i->reporter_phone ?: '-' }}</td>
                     <td>
                         {{ $waktu->copy()->setTimezone('Asia/Jakarta')->format('d-m H:i') }}
-                        <br><span class="kecil">menunggu {{ $menunggu }} menit</span>
+                        <br><span class="kecil">
+                            @if (in_array($i->status, ['baru', 'diverifikasi'], true))
+                                menunggu {{ app(\App\Services\IncidentStatistics::class)->formatDuration($menunggu * 60) }}
+                            @elseif (in_array($i->status, ['ditugaskan', 'ditangani'], true))
+                                berjalan {{ app(\App\Services\IncidentStatistics::class)->formatDuration($menunggu * 60) }}
+                            @else
+                                ditutup
+                            @endif
+                        </span>
                     </td>
                 </tr>
             @endforeach
@@ -114,6 +122,8 @@
         </table>
     @endif
 </div>
+
+<p class="kecil">Skor sinyal hanya menilai kelengkapan data (GPS, akurasi, nomor HP), bukan kebenaran isi laporan. Petugas yang memutuskan.</p>
 
 <div class="halaman">
     @if ($incidents->previousPageUrl())<a href="{{ $incidents->previousPageUrl() }}">&laquo; Sebelumnya</a>@endif
@@ -131,6 +141,10 @@
 
     function tampilkanBanner() { banner.hidden = false; }
     function setKoneksi(teks) { koneksi.textContent = teks; }
+    var tersambung = false;
+    setTimeout(function () {
+        if (!tersambung) { setKoneksi('Real-time belum tersambung. Pengecekan berkala (30 detik) berjalan.'); }
+    }, 6000);
 
     window.addEventListener('load', function () {
         if (!window.Echo || !channel) {
@@ -140,7 +154,7 @@
         try {
             var ch = window.Echo.private(channel);
             ch.listen('.incident.updated', function () { tampilkanBanner(); });
-            if (ch.subscribed) { ch.subscribed(function () { setKoneksi('Real-time aktif'); }); }
+            if (ch.subscribed) { ch.subscribed(function () { tersambung = true; setKoneksi('Real-time aktif'); }); }
             if (ch.error) { ch.error(function () { setKoneksi('Real-time gagal. Pengecekan berkala berjalan.'); }); }
         } catch (e) {
             setKoneksi('Real-time gagal. Pengecekan berkala berjalan.');

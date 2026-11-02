@@ -52,7 +52,7 @@
     </dl>
 
     <p class="catatan">
-        Prototype untuk demo. Dalam keadaan darurat sungguhan, segera hubungi layanan darurat resmi (112).
+        Prototype untuk demo. Dalam keadaan darurat sungguhan, segera hubungi PSC 119 (medis) atau 110 (polisi).
     </p>
 <p style="font-size:13px;color:#555;"><a href="{{ route('privasi') }}">Kebijakan privasi</a></p>
 </main>

@@ -27,7 +27,7 @@
     <p class="catatan" style="background:#fee2e2;">Dalam keadaan darurat dan tidak sempat mengisi formulir, <a href="{{ route('sos.create') }}"><strong>tekan SOS</strong></a>.</p>
 
     <p class="catatan">
-        <strong>Prototype untuk demo.</strong> Dalam keadaan darurat sungguhan, segera hubungi layanan darurat resmi (112).
+        <strong>Prototype untuk demo.</strong> Dalam keadaan darurat sungguhan, segera hubungi PSC 119 (medis) atau 110 (polisi).
     </p>
 
     @if ($errors->any())

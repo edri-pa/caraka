@@ -48,7 +48,7 @@ class IncidentReportTest extends TestCase
         $this->get('/lapor')
             ->assertOk()
             ->assertSee('Ambil lokasi GPS')
-            ->assertSee('112');
+            ->assertSee('PSC 119');
     }
 
     public function test_laporan_dengan_gps_tersimpan_lengkap(): void
