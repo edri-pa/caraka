@@ -19,8 +19,10 @@
         .kecil { font-size: 13px; color: #555; margin: 4px 0 0; }
         fieldset { border: 1px solid #ccc; border-radius: 6px; margin-top: 16px; padding: 4px 12px 12px; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka">
+@include('partials.navbar-warga')
 <main>
     <h1>Lapor Kejadian</h1>
 

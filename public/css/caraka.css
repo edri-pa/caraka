@@ -1,0 +1,96 @@
+/* Caraka: tema kaca (glassmorphism) berdominasi merah.
+   Ringan: tanpa gambar dan tanpa font luar. Ada cadangan untuk peramban tanpa backdrop-filter. */
+:root{
+  --m900:#3b0a0a;--m800:#7f1d1d;--m700:#b91c1c;--m600:#dc2626;--m500:#ef4444;
+  --gelap:#241010;--redup:#6b4a4a;
+  --kaca:rgba(255,255,255,.14);--garis:rgba(255,255,255,.34);--padat:rgba(255,255,255,.95);
+  --blur:16px;--r:18px;
+}
+
+/* Dasar dan latar */
+body.caraka{position:relative;isolation:isolate;display:block;margin:0;min-height:100vh;box-sizing:border-box;padding:92px 14px 40px;color:#fff;background:var(--m900);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+body.caraka::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(60rem 38rem at 8% -8%,rgba(239,68,68,.5),transparent 60%),radial-gradient(48rem 34rem at 100% 12%,rgba(185,28,28,.55),transparent 55%),radial-gradient(44rem 30rem at 45% 112%,rgba(127,29,29,.85),transparent 60%),linear-gradient(160deg,var(--m900),#5a0e0e 55%,var(--m800))}
+body.caraka h1,body.caraka h2,body.caraka legend,body.caraka label{color:inherit}
+body.caraka a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+body.caraka .kecil{color:rgba(255,255,255,.85)}
+
+/* Kartu kaca untuk halaman warga */
+body.caraka main{box-sizing:border-box;margin-left:auto;margin-right:auto;padding:20px;border-radius:var(--r);color:#fff;background:var(--kaca);border:1px solid var(--garis);box-shadow:0 10px 40px rgba(40,0,0,.35),inset 0 1px 0 rgba(255,255,255,.35);-webkit-backdrop-filter:blur(var(--blur)) saturate(150%);backdrop-filter:blur(var(--blur)) saturate(150%)}
+body.caraka.staf main{padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* Isian dan tombol (permukaan padat supaya terbaca) */
+body.caraka input,body.caraka select,body.caraka textarea{box-sizing:border-box;color:var(--gelap);background:#fff;border:1px solid rgba(0,0,0,.25);border-radius:12px}
+body.caraka fieldset{border:1px solid var(--garis);border-radius:14px}
+body.caraka button{cursor:pointer;color:#fff;background:linear-gradient(180deg,var(--m500),var(--m700));border:1px solid rgba(255,255,255,.35);border-radius:12px;box-shadow:0 6px 18px rgba(80,0,0,.35),inset 0 1px 0 rgba(255,255,255,.35);font-weight:700}
+body.caraka button[disabled]{opacity:.65;cursor:not-allowed}
+
+/* Permukaan padat untuk tabel dan bagian petugas (tanpa blur) */
+body.caraka .tabel,body.caraka.staf section,body.caraka.staf .kotak,body.caraka.staf table{color:var(--gelap);background:var(--padat);border-radius:14px;box-shadow:0 8px 28px rgba(40,0,0,.3)}
+body.caraka .tabel a,body.caraka.staf section a,body.caraka.staf .kotak a,body.caraka.staf table a{color:var(--m700)}
+body.caraka .tabel .kecil,body.caraka.staf section .kecil,body.caraka.staf .kotak .kecil,body.caraka.staf table .kecil,body.caraka.staf dt{color:var(--redup)}
+body.caraka.staf th{color:var(--gelap);background:#fdecec}
+body.caraka.staf td,body.caraka.staf th{border-bottom:1px solid rgba(0,0,0,.08)}
+body.caraka.staf .kotak.utama{border:2px solid var(--m600)}
+body.caraka.staf .angka{color:var(--m700)}
+
+/* Penyaring dan tab */
+body.caraka .filter a,body.caraka .tab a{color:#fff;background:var(--kaca);border:1px solid var(--garis);border-radius:999px;text-decoration:none;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+body.caraka .filter a.aktif,body.caraka .tab a.aktif{color:var(--m700);background:#fff;font-weight:700}
+
+/* Pesan: galat dibedakan dari warna merek */
+body.caraka .catatan{background:rgba(255,243,205,.97);color:#5b3a00;border-radius:12px}
+body.caraka .peringatan,body.caraka .info{background:rgba(255,243,205,.97);color:#5b3a00;border-left:6px solid var(--m600);border-radius:12px}
+body.caraka .galat,body.caraka .error{background:#fff;color:var(--m800);border-left:6px solid var(--m800);border-radius:12px;font-weight:600}
+body.caraka .galat::before,body.caraka .error::before{content:"Galat: ";font-weight:800}
+body.caraka .ok,body.caraka .sukses{background:#e6f9ea;color:#14532d;border-left:6px solid #16a34a;border-radius:12px}
+body.caraka #banner-pembaruan{background:rgba(255,255,255,.95)!important;color:var(--m800)!important;border-left:6px solid var(--m600);border-radius:12px!important}
+
+/* Tombol SOS */
+body.caraka #sos,body.caraka .tombol.sos{color:#fff;border:3px solid rgba(255,255,255,.85);background:radial-gradient(circle at 30% 25%,#f05252,#dc2626 55%,#991b1b);box-shadow:0 0 0 10px rgba(255,255,255,.12),0 16px 44px rgba(220,38,38,.6)}
+body.caraka .tombol{border:1px solid var(--garis);text-decoration:none}
+body.caraka .tombol.lapor{background:var(--kaca);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+
+/* Navbar kaca cair */
+.nav-kaca{position:fixed;z-index:2000;left:50%;transform:translateX(-50%);top:max(12px,env(safe-area-inset-top));width:min(960px,calc(100% - 24px));box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;color:#fff;background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.4);box-shadow:0 10px 34px rgba(50,0,0,.5),inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 0 rgba(255,255,255,.14);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
+.nav-kaca::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(120% 160% at 18% -60%,rgba(255,255,255,.5),transparent 55%)}
+.nav-merek{position:relative;padding:6px 12px;font-weight:800;letter-spacing:.06em;color:#fff;text-decoration:none;white-space:nowrap}
+.nav-daftar{position:relative;display:flex;gap:2px;margin:0 auto}
+.nav-daftar a{position:relative;z-index:1;display:block;padding:9px 15px;border-radius:999px;color:#fff;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap}
+.nav-daftar a[aria-current="page"]{background:rgba(255,255,255,.26)}
+.nav-kaca.js .nav-daftar a[aria-current="page"]:not(.nav-sos){background:transparent}
+.nav-cair{position:absolute;z-index:0;top:0;bottom:0;left:0;width:var(--w,0);border-radius:999px;opacity:0;pointer-events:none;transform:translateX(var(--x,0));background:linear-gradient(180deg,rgba(255,255,255,.46),rgba(255,255,255,.16));box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 16px rgba(70,0,0,.4);transition:transform .5s cubic-bezier(.34,1.56,.64,1),width .5s cubic-bezier(.34,1.56,.64,1),opacity .2s}
+.nav-cair.siap{opacity:1}
+.nav-daftar a.nav-sos{background:linear-gradient(180deg,var(--m500),var(--m700));box-shadow:0 4px 14px rgba(120,0,0,.55),inset 0 1px 0 rgba(255,255,255,.45)}
+.nav-nama{position:relative;padding:0 6px;font-size:13px;color:rgba(255,255,255,.9);white-space:nowrap}
+.nav-kaca .nav-keluar{position:relative;margin:0}
+body.caraka .nav-keluar button{padding:8px 14px;font-size:14px}
+body.caraka.staf form[action$="/logout"]:not(.nav-keluar){display:none}
+
+/* Layar sempit: bilah pindah ke bawah */
+@media (max-width:719px){
+  body.caraka{padding-top:16px;padding-bottom:108px}
+  .nav-kaca{top:auto;bottom:max(12px,env(safe-area-inset-bottom));padding:6px}
+  .nav-merek,.nav-nama{display:none}
+  .nav-daftar{flex:1;width:100%;margin:0}
+  .nav-daftar a{flex:1;text-align:center;padding:11px 6px;font-size:13px}
+  .nav-kaca.tersembunyi{display:none}
+}
+
+/* Cadangan: tanpa blur atau dengan preferensi kurangi transparansi */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .nav-kaca{background:rgba(110,16,16,.96)}
+  body.caraka main{background:rgba(110,16,16,.9)}
+  body.caraka.staf main{background:none}
+  body.caraka .filter a,body.caraka .tab a,body.caraka .tombol.lapor{background:rgba(110,16,16,.85)}
+}
+@media (prefers-reduced-transparency:reduce){
+  .nav-kaca{background:rgba(110,16,16,.96);-webkit-backdrop-filter:none;backdrop-filter:none}
+  body.caraka main{background:rgba(110,16,16,.9);-webkit-backdrop-filter:none;backdrop-filter:none}
+  body.caraka.staf main{background:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .nav-cair{transition:none}
+}
+
+/* Fokus papan ketik terlihat di latar gelap maupun terang */
+body.caraka a:focus-visible,body.caraka button:focus-visible,body.caraka input:focus-visible,body.caraka select:focus-visible,body.caraka textarea:focus-visible{outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px var(--m600)}

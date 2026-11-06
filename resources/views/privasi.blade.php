@@ -10,8 +10,10 @@
         h2 { font-size: 18px; margin-top: 24px; }
         .catatan { background: #fef3c7; padding: 10px; border-radius: 4px; font-size: 14px; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka">
+@include('partials.navbar-warga')
 <main>
     <h1>Kebijakan privasi</h1>
     <p class="catatan">Caraka adalah prototype untuk uji coba dan lomba inovasi. Dokumen ini menjelaskan praktik prototype dan belum ditinjau ahli hukum. Caraka bukan layanan darurat resmi.</p>

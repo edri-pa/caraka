@@ -13,8 +13,10 @@
         dd { margin: 2px 0 0; font-size: 17px; }
         .catatan { background: #fef3c7; padding: 10px; border-radius: 4px; font-size: 14px; margin-top: 16px; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka">
+@include('partials.navbar-warga')
 @php
     $labels = [
         'baru' => 'Diterima, menunggu verifikasi',

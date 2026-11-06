@@ -10,8 +10,10 @@
         .kode { font-size: 48px; font-weight: bold; color: #9ca3af; margin: 0; }
         .catatan { background: #fef3c7; padding: 10px; border-radius: 4px; font-size: 14px; text-align: left; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka">
+@include('partials.navbar-warga')
 <main>
     <p class="kode">{{ $kode }}</p>
     <h1>{{ $judul }}</h1>

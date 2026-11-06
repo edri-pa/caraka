@@ -24,8 +24,10 @@
         ul { font-size: 13px; color: #444; padding-left: 18px; }
         button { padding: 6px 12px; cursor: pointer; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka staf">
+@include('partials.navbar-staf')
 @php
     $labelStatus = [
         'baru' => 'Baru', 'diverifikasi' => 'Diverifikasi', 'ditugaskan' => 'Ditugaskan',

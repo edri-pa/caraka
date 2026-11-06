@@ -17,8 +17,10 @@
         .catatan { background: #fef3c7; padding: 10px; border-radius: 4px; font-size: 14px; text-align: left; }
         .kecil { font-size: 13px; color: #555; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka">
+@include('partials.navbar-warga')
 <main>
     <h1>Caraka</h1>
     <p>Pelaporan kejadian darurat dalam satu pintu (prototype).</p>

@@ -28,8 +28,10 @@
         .halaman { margin: 12px 0; display: flex; gap: 12px; }
         button { padding: 6px 12px; cursor: pointer; }
     </style>
+@include('partials.head-tema')
 </head>
-<body data-channel="dispatch" data-signature="{{ $signature }}" data-ringkasan-url="{{ route('dispatcher.ringkasan') }}">
+<body class="caraka staf" data-channel="dispatch" data-signature="{{ $signature }}" data-ringkasan-url="{{ route('dispatcher.ringkasan') }}">
+@include('partials.navbar-staf')
 @php
     $labels = [
         'baru' => 'Baru', 'diverifikasi' => 'Diverifikasi', 'ditugaskan' => 'Ditugaskan',

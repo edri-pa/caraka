@@ -15,8 +15,10 @@
         button { margin-top: 16px; width: 100%; padding: 12px; font-size: 16px; cursor: pointer; }
         .error { background: #fee2e2; color: #991b1b; padding: 8px 10px; border-radius: 4px; margin-bottom: 8px; font-size: 14px; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka">
+@include('partials.navbar-warga')
     <main>
         <h1>Caraka</h1>
         <p>Masuk untuk staf (dispatcher, responder, admin)</p>

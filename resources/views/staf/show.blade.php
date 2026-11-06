@@ -30,8 +30,10 @@
         ? 'dispatch'
         : ($authUser->agency_id ? 'agency.'.$authUser->agency_id : '');
 @endphp
+@include('partials.head-tema')
 </head>
-<body data-channel="{{ $liveChannel }}" data-incident-id="{{ $incident->id }}">
+<body class="caraka staf" data-channel="{{ $liveChannel }}" data-incident-id="{{ $incident->id }}">
+@include('partials.navbar-staf')
 @php
     $labels = [
         'baru' => 'Baru', 'diverifikasi' => 'Diverifikasi', 'ditugaskan' => 'Ditugaskan',

@@ -22,8 +22,10 @@
         .info { background: #fef3c7; padding: 10px; border-radius: 4px; margin: 12px 0; }
         button { padding: 6px 12px; cursor: pointer; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka staf">
+@include('partials.navbar-staf')
 @php
     $labels = [
         'ditugaskan' => 'Ditugaskan', 'ditangani' => 'Ditangani', 'selesai' => 'Selesai',

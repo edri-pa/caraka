@@ -14,8 +14,10 @@
         .catatan { background: #fef3c7; padding: 10px; border-radius: 4px; font-size: 14px; text-align: left; }
         a { color: #1d4ed8; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka">
+@include('partials.navbar-warga')
 <main>
     <h1>Butuh bantuan darurat?</h1>
     <p>Tekan tombol satu kali. Lokasi Anda dikirim otomatis bila diizinkan.</p>

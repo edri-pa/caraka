@@ -16,8 +16,10 @@
         select, input, button { width: 100%; box-sizing: border-box; padding: 10px; font-size: 16px; }
         button { margin-top: 16px; cursor: pointer; }
     </style>
+@include('partials.head-tema')
 </head>
-<body>
+<body class="caraka">
+@include('partials.navbar-warga')
 <main>
     <h1>SOS terkirim</h1>
 
