@@ -94,3 +94,9 @@ body.caraka.staf form[action$="/logout"]:not(.nav-keluar){display:none}
 
 /* Fokus papan ketik terlihat di latar gelap maupun terang */
 body.caraka a:focus-visible,body.caraka button:focus-visible,body.caraka input:focus-visible,body.caraka select:focus-visible,body.caraka textarea:focus-visible{outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px var(--m600)}
+
+/* Perbaikan dari uji tampilan: tautan navbar tanpa garis bawah, tautan di kotak pesan terbaca, kontras tombol */
+body.caraka .nav-kaca a{text-decoration:none}
+body.caraka .catatan a,body.caraka .peringatan a,body.caraka .info a,body.caraka .galat a,body.caraka .error a,body.caraka .ok a,body.caraka .sukses a,body.caraka #banner-pembaruan a{color:var(--m800);font-weight:700}
+body.caraka button{background:linear-gradient(180deg,var(--m600),var(--m700))}
+.nav-daftar a.nav-sos{background:linear-gradient(180deg,var(--m600),var(--m700))}
