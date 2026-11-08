@@ -273,6 +273,8 @@ class StatisticsTest extends TestCase
             'tepat satu jam' => [3600, '1 jam'],
             'jam dan menit' => [3725, '1 jam 2 mnt'],
             'dibulatkan' => [29.6, '30 dtk'],
+            'tepat dua hari' => [172800, '2 hari'],
+            'hari dan jam' => [626400, '7 hari 6 jam'],
         ];
     }
 

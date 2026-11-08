@@ -100,3 +100,9 @@ body.caraka .nav-kaca a{text-decoration:none}
 body.caraka .catatan a,body.caraka .peringatan a,body.caraka .info a,body.caraka .galat a,body.caraka .error a,body.caraka .ok a,body.caraka .sukses a,body.caraka #banner-pembaruan a{color:var(--m800);font-weight:700}
 body.caraka button{background:linear-gradient(180deg,var(--m600),var(--m700))}
 .nav-daftar a.nav-sos{background:linear-gradient(180deg,var(--m600),var(--m700))}
+
+/* Perbaikan dari tangkapan layar dashboard, detail, dan statistik */
+body.caraka.staf{padding-left:clamp(14px,3vw,40px);padding-right:clamp(14px,3vw,40px)}
+body.caraka.staf > :not(.nav-kaca):not(script):not(main){max-width:1240px;margin-left:auto;margin-right:auto}
+body.caraka.staf main > ul{color:rgba(255,255,255,.92)}
+body.caraka.staf section .kecil{font-size:13px}

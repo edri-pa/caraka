@@ -136,6 +136,13 @@ class IncidentStatistics
             return $m.' mnt'.($s > 0 ? ' '.$s.' dtk' : '');
         }
 
+        if ($seconds >= 172800) {
+            $d = intdiv($seconds, 86400);
+            $h = intdiv($seconds % 86400, 3600);
+
+            return $d.' hari'.($h > 0 ? ' '.$h.' jam' : '');
+        }
+
         $h = intdiv($seconds, 3600);
         $m = intdiv($seconds % 3600, 60);
 

@@ -82,8 +82,8 @@
             <dd>{{ $incident->category }}</dd>
             <dt>Prioritas</dt>
             <dd>{{ $incident->priority_score }} (1 sampai 5)</dd>
-            <dt>Skor kepercayaan</dt>
-            <dd>{{ $incident->trust_score }} (saran, bukan keputusan)</dd>
+            <dt>Skor sinyal</dt>
+            <dd>{{ $incident->trust_score }} (menilai kelengkapan data, bukan kebenaran isi laporan)</dd>
             <dt>Korban luka</dt>
             <dd>@if ($incident->has_casualty === null) Tidak diketahui @elseif ($incident->has_casualty) Ya @else Tidak ada @endif</dd>
             <dt>Keterangan</dt>
