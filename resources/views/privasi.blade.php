@@ -32,7 +32,7 @@
     <h2>Siapa yang dapat melihat</h2>
     <ul>
         <li>Dispatcher dan admin dapat melihat laporan secara lengkap, termasuk nomor HP.</li>
-        <li>Responder hanya melihat tugas yang ditugaskan ke instansinya.</li>
+        <li>Responder hanya melihat tugas yang ditugaskan ke instansinya. Nomor HP pelapor dapat dilihat responder yang ditugaskan selama tugas berjalan, hanya untuk menemukan lokasi dan menangani kejadian. Setiap akses tercatat, dan nomor disembunyikan dari responder setelah tugas ditutup.</li>
         <li>Halaman status publik hanya menampilkan nomor referensi, status, jenis kejadian, kecamatan, dan waktu.</li>
     </ul>
 

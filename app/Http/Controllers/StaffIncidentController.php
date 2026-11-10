@@ -39,6 +39,33 @@ class StaffIncidentController
 
         abort_if($incident === null, 404);
 
+        // Nomor pelapor untuk responder: hanya selama tugas berjalan, dan akses tercatat (nomornya tidak disimpan di catatan).
+        if ($user->role === 'responder') {
+            $incident->reporter_hash = null;
+
+            if (in_array($incident->status, IncidentWorkflow::TERMINAL, true)) {
+                $incident->reporter_phone = null;
+            } elseif ($incident->reporter_phone !== null) {
+                $sudahTercatat = DB::table('incident_logs')
+                    ->where('incident_id', $id)
+                    ->where('user_id', $user->id)
+                    ->where('action', 'nomor_dilihat')
+                    ->exists();
+
+                if (! $sudahTercatat) {
+                    DB::table('incident_logs')->insert([
+                        'incident_id' => $id,
+                        'user_id' => $user->id,
+                        'action' => 'nomor_dilihat',
+                        'from_status' => $incident->status,
+                        'to_status' => $incident->status,
+                        'note' => 'Responder melihat nomor pelapor (nomornya tidak disimpan di catatan ini).',
+                        'created_at' => now(),
+                    ]);
+                }
+            }
+        }
+
         $agencies = DB::table('incident_agencies')
             ->join('agencies', 'agencies.id', '=', 'incident_agencies.agency_id')
             ->where('incident_agencies.incident_id', $id)

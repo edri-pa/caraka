@@ -89,7 +89,16 @@
             <dt>Keterangan</dt>
             <dd>{{ $incident->description ?: '-' }}</dd>
             <dt>Nomor HP pelapor</dt>
-            <dd>{{ $incident->reporter_phone ?: '-' }}</dd>
+            <dd>
+                @if ($canMark)
+                    {{ $incident->reporter_phone ?: '-' }}
+                @elseif ($incident->reporter_phone)
+                    {{ $incident->reporter_phone }}
+                    <span class="kecil">(gunakan hanya untuk menemukan lokasi dan menangani kejadian ini; akses tercatat)</span>
+                @else
+                    - <span class="kecil">(tidak tersedia, atau tugas sudah ditutup)</span>
+                @endif
+            </dd>
             <dt>Waktu laporan</dt>
             <dd>{{ $wib($incident->reported_at) }} WIB</dd>
             @if ($incident->closed_at)
