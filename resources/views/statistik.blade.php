@@ -52,6 +52,10 @@
         <a href="{{ route('statistik', ['periode' => '7']) }}" class="{{ $periode === '7' ? 'aktif' : '' }}">7 hari</a>
     </nav>
 
+    @if ($demo > 0)
+        <p class="peringatan"><strong>Data demo.</strong> Statistik ini memuat {{ $demo }} laporan DEMO fiktif. Hapus dengan demo:isi --hapus sebelum mengambil bukti.</p>
+    @endif
+
     @if ($data['total'] === 0)
         <p class="peringatan">Belum ada laporan pada periode ini.</p>
     @else

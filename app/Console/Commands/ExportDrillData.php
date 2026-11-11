@@ -34,6 +34,7 @@ class ExportDrillData extends Command
 
         $laporan = DB::table('incidents')
             ->join('categories', 'categories.id', '=', 'incidents.category_id')
+            ->where('incidents.reference', 'not like', 'DEMO%')
             ->orderBy('incidents.reported_at')
             ->orderBy('incidents.id')
             ->selectRaw(

@@ -22,6 +22,7 @@ class StatisticsController
         return view('statistik', [
             'data' => $statistics->summary($since),
             'periode' => $periode,
+            'demo' => \Illuminate\Support\Facades\DB::table('incidents')->where('reference', 'like', 'DEMO%')->count(),
             'format' => fn ($detik) => $statistics->formatDuration($detik),
         ]);
     }
