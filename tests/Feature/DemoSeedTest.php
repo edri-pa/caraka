@@ -69,7 +69,7 @@ class DemoSeedTest extends TestCase
         $status = DB::table('incidents')->where('reference', 'like', 'DEMO%')->pluck('status')->sort()->values()->all();
 
         $this->assertSame(6, $this->jumlahDemo());
-        $this->assertSame(['baru', 'diverifikasi', 'ditangani', 'ditugaskan', 'selesai', 'tidak_terbukti'], $status);
+        $this->assertSame(['baru', 'ditangani', 'ditugaskan', 'diverifikasi', 'selesai', 'tidak_terbukti'], $status);
     }
 
     public function test_data_demo_lengkap_dengan_log_dan_penugasan(): void

@@ -169,8 +169,7 @@ class DemoCheckTest extends TestCase
         ]);
 
         $this->artisan('demo:periksa')
-            ->expectsOutputToContain('1 laporan lama')
-            ->expectsOutputToContain('gladi:ekspor')
+            ->expectsOutputToContain('1 laporan lama. Untuk gladi yang bersih: sail artisan gladi:ekspor')
             ->assertExitCode(0);
     }
 
