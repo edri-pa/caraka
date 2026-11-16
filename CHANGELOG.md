@@ -3,7 +3,7 @@
 Format mengikuti Keep a Changelog. Nomor versi ada di berkas `VERSION`. Saat membuat penanda Git:
 ubah `VERSION`, pindahkan isi "Belum dirilis" ke bagian versi baru, lalu `git tag -a vX.Y.Z`.
 
-## [Belum dirilis] (menuju 0.12.0)
+## [0.12.0] Ketahanan dan versi
 
 ### Diperbaiki
 - Penerapan saran instansi kini atomik: laporan dikunci dan saran dihitung ulang di dalam kunci, sehingga instansi utama yang baru ditetapkan petugas lain tidak tertimpa.
