@@ -183,8 +183,10 @@ class StaffIncidentController
         }
 
         try {
-            foreach ($suggestions as $saran) {
-                $this->workflow->assignAgency($id, $saran['agency_id'], $saran['role'], $user->id);
+            $diterapkan = $this->workflow->applySuggestions($id, $user->id, app(\App\Services\AgencyRoutingSuggester::class));
+
+            if ($diterapkan === 0) {
+                throw new InvalidWorkflowAction('Saran sudah diterapkan oleh petugas lain, atau tidak ada lagi yang bisa diterapkan.');
             }
         } catch (InvalidWorkflowAction $e) {
             return redirect()->route('staf.laporan.show', $id)->withErrors(['aksi' => $e->getMessage()]);
