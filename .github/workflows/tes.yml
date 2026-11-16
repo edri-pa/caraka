@@ -1,0 +1,97 @@
+# Tes otomatis Caraka: berjalan pada setiap push ke cabang mana pun dan dapat dijalankan manual.
+name: Tes
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tes-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgis/postgis:18-3.6-alpine
+        env:
+          POSTGRES_USER: sail
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: testing
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U sail -d testing"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+
+    env:
+      APP_ENV: testing
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_DATABASE: testing
+      DB_USERNAME: sail
+      DB_PASSWORD: password
+      BROADCAST_CONNECTION: log
+      CACHE_STORE: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+
+    steps:
+      - name: Ambil kode
+        uses: actions/checkout@v6
+
+      - name: Siapkan PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: mbstring, intl, bcmath, pdo_pgsql, pgsql
+          coverage: none
+          tools: composer:v2
+
+      - name: Pasang dependensi
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Siapkan lingkungan
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Aktifkan PostGIS
+        run: |
+          PGPASSWORD=password psql -h 127.0.0.1 -U sail -d testing -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+
+      - name: Jalankan tes
+        run: php artisan test
+
+  audit:
+    # Hanya melaporkan kerentanan yang diketahui; tidak menggagalkan alur.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+
+    steps:
+      - name: Ambil kode
+        uses: actions/checkout@v6
+
+      - name: Siapkan PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          coverage: none
+          tools: composer:v2
+
+      - name: Audit dependensi PHP
+        run: composer audit
+
+      - name: Audit dependensi JavaScript
+        run: npm audit --omit=dev

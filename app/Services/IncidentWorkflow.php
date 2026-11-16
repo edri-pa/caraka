@@ -136,4 +136,37 @@ class IncidentWorkflow
             'created_at' => now(),
         ]);
     }
+
+    /**
+     * Terapkan saran instansi secara atomik: laporan dikunci, saran DIHITUNG ULANG di dalam kunci,
+     * lalu diterapkan. Saran yang sudah basi (petugas lain baru menetapkan instansi) tidak bisa
+     * menimpa penetapan itu.
+     *
+     * @return int jumlah instansi yang ditetapkan (0 bila tidak ada lagi yang bisa diterapkan)
+     */
+    public function applySuggestions(int $incidentId, ?int $userId, \App\Services\AgencyRoutingSuggester $suggester): int
+    {
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($incidentId, $userId, $suggester) {
+            $laporan = \Illuminate\Support\Facades\DB::table('incidents')
+                ->where('id', $incidentId)
+                ->lockForUpdate()
+                ->first(['id', 'status']);
+
+            if ($laporan === null) {
+                throw new \App\Exceptions\InvalidWorkflowAction('Laporan tidak ditemukan.');
+            }
+
+            if (in_array($laporan->status, self::TERMINAL, true)) {
+                throw new \App\Exceptions\InvalidWorkflowAction('Laporan sudah ditutup; saran tidak bisa diterapkan.');
+            }
+
+            $saran = $suggester->suggest($incidentId);
+
+            foreach ($saran as $s) {
+                $this->assignAgency($incidentId, $s['agency_id'], $s['role'], $userId);
+            }
+
+            return count($saran);
+        });
+    }
 }
