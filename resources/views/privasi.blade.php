@@ -47,5 +47,6 @@
 
     <p><a href="{{ route('beranda') }}">&laquo; Kembali ke beranda</a></p>
 </main>
+@include('partials.versi')
 </body>
 </html>

@@ -71,5 +71,6 @@
     <p class="catatan">Prototype untuk demo. Tidak menggantikan layanan darurat resmi.</p>
 <p style="font-size:13px;color:#555;"><a href="{{ route('privasi') }}">Kebijakan privasi</a></p>
 </main>
+@include('partials.versi')
 </body>
 </html>

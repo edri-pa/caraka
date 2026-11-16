@@ -62,5 +62,6 @@
 <script>
     try { localStorage.removeItem('caraka_lapor_draf'); } catch (e) {}
 </script>
+@include('partials.versi')
 </body>
 </html>

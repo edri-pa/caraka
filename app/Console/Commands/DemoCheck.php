@@ -25,6 +25,7 @@ class DemoCheck extends Command
         try {
             DB::connection()->getPdo();
             $ok[] = 'Database tersambung.';
+            $ok[] = 'Versi aplikasi: '.app(\App\Services\AppVersion::class)->label(true).'.';
         } catch (Throwable) {
             $kritis[] = 'Database tidak tersambung. Jalankan "sail up -d" dan tunggu pgsql berstatus healthy.';
 

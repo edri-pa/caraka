@@ -106,5 +106,6 @@
         </ul>
     @endif
 </main>
+@include('partials.versi')
 </body>
 </html>

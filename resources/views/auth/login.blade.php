@@ -40,5 +40,6 @@
             <button type="submit">Masuk</button>
         </form>
     </main>
+@include('partials.versi')
 </body>
 </html>

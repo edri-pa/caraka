@@ -174,5 +174,6 @@
     }, 30000);
 })();
 </script>
+@include('partials.versi')
 </body>
 </html>

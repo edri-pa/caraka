@@ -15,6 +15,7 @@ class DocumentationTest extends TestCase
         'docs/NASKAH-DEMO.md',
         'docs/RENCANA-GLADI.md',
         'docs/CATATAN-PROYEK.md',
+        'CHANGELOG.md',
     ];
 
     public function test_dokumen_wajib_ada_dan_tidak_kosong(): void

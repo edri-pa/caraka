@@ -68,6 +68,7 @@ Aplikasi: http://localhost. Pemasangan dari nol di mesin baru belum diuji ulang.
 - `docs/NASKAH-DEMO.md`: naskah demo dan jawaban atas pertanyaan yang mungkin muncul
 - `docs/RENCANA-GLADI.md`: rencana uji coba skala kecil
 - `docs/CATATAN-PROYEK.md`: catatan serah terima antar sesi kerja
+- `CHANGELOG.md`: riwayat perubahan (nomor versi ada di berkas `VERSION`)
 
 ## Lisensi dan atribusi
 

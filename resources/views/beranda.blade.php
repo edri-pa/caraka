@@ -48,5 +48,6 @@
         <a href="{{ route('privasi') }}">Kebijakan privasi</a>
     </p>
 </main>
+@include('partials.versi')
 </body>
 </html>

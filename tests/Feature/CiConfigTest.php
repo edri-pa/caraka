@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Symfony\Component\Yaml\Yaml;
 use Tests\TestCase;
 
 class CiConfigTest extends TestCase
@@ -16,44 +15,39 @@ class CiConfigTest extends TestCase
         return (string) file_get_contents($path);
     }
 
-    private function yaml(): array
-    {
-        if (! class_exists(Yaml::class)) {
-            $this->markTestSkipped('symfony/yaml tidak tersedia.');
-        }
-
-        return Yaml::parse($this->teks());
-    }
-
     public function test_alur_ci_menjalankan_tes_dengan_postgis_dan_basis_data_testing(): void
     {
         $teks = $this->teks();
-        $y = $this->yaml();
 
-        $this->assertStringContainsString('php artisan test', $teks);
-        $this->assertStringContainsString('push:', $teks);
-        $this->assertStringContainsString('postgis/postgis', $y['jobs']['tes']['services']['postgres']['image']);
-        $this->assertSame('testing', $y['jobs']['tes']['env']['DB_DATABASE']);
-        $this->assertSame('pgsql', $y['jobs']['tes']['env']['DB_CONNECTION']);
+        $this->assertStringContainsString('run: php artisan test', $teks);
+        $this->assertMatchesRegularExpression('/^on:\s*\n\s+push:/m', $teks);
+        $this->assertMatchesRegularExpression('/image:\s*postgis\/postgis/', $teks);
+        $this->assertMatchesRegularExpression('/DB_DATABASE:\s*testing/', $teks);
+        $this->assertMatchesRegularExpression('/DB_CONNECTION:\s*pgsql/', $teks);
     }
 
     public function test_alur_ci_memakai_izin_minimal_dan_tanpa_rahasia(): void
     {
         $teks = $this->teks();
-        $y = $this->yaml();
 
-        $this->assertSame(['contents' => 'read'], $y['permissions']);
+        $this->assertMatchesRegularExpression('/^permissions:\s*\n\s+contents:\s*read\s*$/m', $teks);
         $this->assertStringNotContainsString('pull_request_target', $teks);
         $this->assertStringNotContainsString('secrets.', $teks);
     }
 
     public function test_alur_ci_punya_batas_waktu_dan_pembatalan_otomatis(): void
     {
-        $y = $this->yaml();
+        $teks = $this->teks();
 
-        $this->assertLessThanOrEqual(30, $y['jobs']['tes']['timeout-minutes']);
-        $this->assertLessThanOrEqual(30, $y['jobs']['audit']['timeout-minutes']);
-        $this->assertTrue($y['concurrency']['cancel-in-progress']);
+        preg_match_all('/timeout-minutes:\s*(\d+)/', $teks, $cocok);
+
+        $this->assertGreaterThanOrEqual(2, count($cocok[1]), 'Setiap pekerjaan harus punya timeout-minutes.');
+
+        foreach ($cocok[1] as $menit) {
+            $this->assertLessThanOrEqual(30, (int) $menit);
+        }
+
+        $this->assertMatchesRegularExpression('/cancel-in-progress:\s*true/', $teks);
     }
 
     public function test_semua_aksi_memakai_versi_tertentu(): void

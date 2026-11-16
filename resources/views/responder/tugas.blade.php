@@ -94,5 +94,6 @@
         @endif
     </div>
 @endif
+@include('partials.versi')
 </body>
 </html>

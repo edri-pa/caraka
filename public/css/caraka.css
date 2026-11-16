@@ -106,3 +106,7 @@ body.caraka.staf{padding-left:clamp(14px,3vw,40px);padding-right:clamp(14px,3vw,
 body.caraka.staf > :not(.nav-kaca):not(script):not(main){max-width:1240px;margin-left:auto;margin-right:auto}
 body.caraka.staf main > ul{color:rgba(255,255,255,.92)}
 body.caraka.staf section .kecil{font-size:13px}
+
+/* Versi aplikasi di kaki halaman */
+body.caraka .versi-app{margin:22px auto 0;max-width:480px;text-align:center;font-size:12px;color:rgba(255,255,255,.72)}
+body.caraka.staf .versi-app{max-width:none}

@@ -66,9 +66,12 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
-      - name: Aktifkan PostGIS
+      - name: Pastikan PostGIS aktif
+        # Image postgis biasanya sudah mengaktifkannya; langkah ini hanya pengaman.
         run: |
-          PGPASSWORD=password psql -h 127.0.0.1 -U sail -d testing -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+          if command -v psql >/dev/null 2>&1; then
+            PGPASSWORD=password psql -h 127.0.0.1 -U sail -d testing -c "CREATE EXTENSION IF NOT EXISTS postgis;" || true
+          fi
 
       - name: Jalankan tes
         run: php artisan test
