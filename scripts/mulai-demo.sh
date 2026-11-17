@@ -74,8 +74,8 @@ if [ "$TANPA_TUNNEL" -eq 0 ]; then
         fi
 
         url=""
-        for i in $(seq 1 30); do
-            url=$(grep -o 'https://[a-zA-Z0-9-]*\.trycloudflare\.com' "$STATE/tunnel.log" | head -n 1)
+        for i in $(seq 1 45); do
+            url=$(grep -o 'https://[a-zA-Z0-9-]*\.trycloudflare\.com' "$STATE/tunnel.log" | grep -v '^https://api\.trycloudflare\.com$' | head -n 1)
             [ -n "$url" ] && break
             sleep 1
         done
