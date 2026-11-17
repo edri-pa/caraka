@@ -48,7 +48,7 @@ class SecurityCheck extends Command
             $peringatan[] = 'SESSION_SECURE_COOKIE belum true (cookie sesi bisa terkirim lewat HTTP).';
         }
 
-        if (filled(env('DEMO_STAFF_PASSWORD'))) {
+        if (filled(config('caraka.demo_staff_password'))) {
             $peringatan[] = 'DEMO_STAFF_PASSWORD masih ada di lingkungan. Hapus setelah akun dibuat.';
         }
 
