@@ -61,6 +61,11 @@ class CiConfigTest extends TestCase
         }
     }
 
+    public function test_audit_composer_memeriksa_berkas_kunci_tanpa_memasang_paket(): void
+    {
+        $this->assertMatchesRegularExpression('/run:\s*composer audit\s+--locked/', $this->teks());
+    }
+
     public function test_dependabot_memantau_aksi_github(): void
     {
         $path = base_path('.github/dependabot.yml');
