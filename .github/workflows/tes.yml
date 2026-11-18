@@ -48,7 +48,7 @@ jobs:
 
     steps:
       - name: Ambil kode
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Siapkan PHP
         uses: shivammathur/setup-php@v2
@@ -84,7 +84,7 @@ jobs:
 
     steps:
       - name: Ambil kode
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Siapkan PHP
         uses: shivammathur/setup-php@v2
