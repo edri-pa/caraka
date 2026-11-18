@@ -97,4 +97,5 @@ jobs:
         run: composer audit --locked
 
       - name: Audit dependensi JavaScript
+        if: ${{ always() }}
         run: npm audit --omit=dev

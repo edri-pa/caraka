@@ -8,6 +8,7 @@ ubah `VERSION`, pindahkan isi "Belum dirilis" ke bagian versi baru, lalu `git ta
 ### Diperbaiki
 - Penerapan saran instansi kini atomik: laporan dikunci dan saran dihitung ulang di dalam kunci, sehingga instansi utama yang baru ditetapkan petugas lain tidak tertimpa.
 - Kata sandi akun demo dibaca lewat konfigurasi (`config/caraka.php`), bukan `env()` langsung, supaya aman bila konfigurasi di-cache di server.
+- Dependensi diperbarui untuk menutup advisori keamanan yang dilaporkan `composer audit` (laravel/framework dan paket symfony).
 
 ### Ditambahkan
 - Nomor versi aplikasi (berkas `VERSION`) di kaki halaman dan di `demo:periksa`. Komit Git hanya tampil untuk petugas.

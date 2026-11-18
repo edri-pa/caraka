@@ -10,7 +10,7 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $password = env('DEMO_STAFF_PASSWORD');
+        $password = config('caraka.demo_staff_password');
 
         if (blank($password) || strlen($password) < 12) {
             throw new \RuntimeException('Isi DEMO_STAFF_PASSWORD di .env (minimal 12 karakter) sebelum menjalankan UserSeeder.');

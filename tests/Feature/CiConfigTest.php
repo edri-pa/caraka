@@ -66,6 +66,11 @@ class CiConfigTest extends TestCase
         $this->assertMatchesRegularExpression('/run:\s*composer audit\s+--locked/', $this->teks());
     }
 
+    public function test_audit_javascript_tetap_berjalan_walau_audit_composer_gagal(): void
+    {
+        $this->assertMatchesRegularExpression('/if:\s*\$\{\{\s*always\(\)\s*\}\}\s*\n\s*run:\s*npm audit/', $this->teks());
+    }
+
     public function test_dependabot_memantau_aksi_github(): void
     {
         $path = base_path('.github/dependabot.yml');
