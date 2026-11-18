@@ -1,7 +1,7 @@
 # Riwayat perubahan
 
-Format mengikuti Keep a Changelog. Nomor versi ada di berkas `VERSION`. Saat membuat penanda Git:
-ubah `VERSION`, pindahkan isi "Belum dirilis" ke bagian versi baru, lalu `git tag -a vX.Y.Z`.
+Format mengikuti Keep a Changelog. Nomor versi ada di berkas `VERSION`.
+Isi tiap bagian ditulis dari isi penanda Git, bukan dari rencana. Tidak semua nomor versi punya penanda (tidak ada 0.11.0).
 
 ## [0.12.1] Versi aplikasi, konfigurasi, dan pembaruan keamanan
 
@@ -16,18 +16,17 @@ ubah `VERSION`, pindahkan isi "Belum dirilis" ke bagian versi baru, lalu `git ta
 - Tes pelindung konfigurasi (`CarakaConfigTest`, `ConfigEnvTest`) dan tes alur CI yang lebih lengkap.
 
 ### Catatan
-Penanda `v0.12.0` sudah dipublikasikan lebih dulu dan tidak memuat perubahan di atas. Gunakan 0.12.1.
+Penanda `v0.12.0` sudah dipublikasikan lebih dulu dan tidak memuat perubahan di atas.
 
-## [0.12.0] Penerapan saran atomik dan CI awal
-- Metode penerapan saran instansi yang atomik (`IncidentWorkflow::applySuggestions`): laporan dikunci dan saran dihitung ulang di dalam kunci.
-- Alur CI GitHub Actions awal (tes pada setiap push).
-
-## [0.11.0] Demo kapan saja
-- `demo:periksa`, `demo:isi`, skrip `mulai-demo.sh` dan `akhiri-demo.sh`, dan `docs/DEMO-CEPAT.md`.
-
-## [0.10.0] Bukti uji dan akses nomor responder
+## [0.12.0] Pekerjaan sejak 0.10.0
 - `gladi:ekspor` (ekspor tanpa data pribadi) dan lembar catatan gladi.
+- `demo:periksa`, `demo:isi`, skrip `mulai-demo.sh` dan `akhiri-demo.sh`, dan `docs/DEMO-CEPAT.md`.
+- Penerapan saran instansi yang atomik (`IncidentWorkflow::applySuggestions`).
+- Alur CI GitHub Actions awal.
+
+## [0.10.0] Nomor pelapor untuk responder dan penyempurnaan tampilan
 - Nomor pelapor untuk responder: hanya selama tugas berjalan, dan akses tercatat.
+- Tema kaca merah dan navbar kaca cair, serta perbaikan dari uji tangkapan layar (label waktu, skor sinyal, kontras).
 
 ## [0.9.0] Kandidat rilis
 - Fitur wajib lengkap: lapor, SOS, dashboard real-time, peta dan saran fasilitas, saran instansi, penandaan, statistik, privasi, keamanan, dan dokumentasi.
