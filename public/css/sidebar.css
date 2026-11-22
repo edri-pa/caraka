@@ -1,0 +1,57 @@
+/* Tata letak dua kolom halaman petugas: menu di kiri, isi di kanan, dengan tombol sembunyikan menu. */
+:root{--side-lebar:248px;--side-jarak:12px}
+
+body.caraka.staf[data-tata="sidebar"]{padding:0;min-height:100vh}
+body.caraka.staf[data-tata="sidebar"] > .app-isi{box-sizing:border-box;max-width:none;margin:0 0 0 calc(var(--side-lebar) + var(--side-jarak) * 2);padding:20px clamp(14px,2.5vw,32px) 40px;transition:margin-left .35s cubic-bezier(.34,1.2,.64,1)}
+body.caraka.staf[data-tata="sidebar"] > .side,body.caraka.staf[data-tata="sidebar"] > .side-tirai,body.caraka.staf[data-tata="sidebar"] > .side-buka{margin:0;max-width:none}
+.app-isi > :not(main):not(script){max-width:1240px;margin-left:auto;margin-right:auto}
+
+/* Kolom kiri */
+.side{position:fixed;z-index:2000;top:var(--side-jarak);bottom:var(--side-jarak);left:var(--side-jarak);width:var(--side-lebar);box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:22px;color:#fff;background:linear-gradient(160deg,rgba(255,255,255,.24),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.38);box-shadow:0 10px 34px rgba(50,0,0,.5),inset 0 1px 0 rgba(255,255,255,.55);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);transition:transform .35s cubic-bezier(.34,1.2,.64,1),opacity .25s,visibility 0s}
+body.caraka .side a{text-decoration:none}
+.side-kepala{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.side-merek{padding:6px 10px;font-weight:800;letter-spacing:.06em;color:#fff;white-space:nowrap}
+body.caraka .side-tutup{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border-radius:12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.38);box-shadow:none}
+.side-menu{position:relative;display:flex;flex-direction:column;gap:4px;flex:1;min-height:0;overflow-y:auto;padding:4px 0}
+.side-menu a{position:relative;z-index:1;display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:14px;color:#fff;font-size:14px;font-weight:600}
+.side-menu svg{flex:none}
+.side-menu a[aria-current="page"]{background:rgba(255,255,255,.26)}
+.side.js .side-menu a[aria-current="page"]{background:transparent}
+.side-cair{position:absolute;z-index:0;left:0;right:0;top:0;height:var(--h,0);border-radius:14px;opacity:0;pointer-events:none;transform:translateY(var(--y,0));background:linear-gradient(180deg,rgba(255,255,255,.46),rgba(255,255,255,.16));box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 16px rgba(70,0,0,.4);transition:transform .5s cubic-bezier(.34,1.56,.64,1),height .5s cubic-bezier(.34,1.56,.64,1),opacity .2s}
+.side-cair.siap{opacity:1}
+.side-kaki{display:flex;flex-direction:column;gap:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,.25)}
+.side-nama{font-size:13px;font-weight:700;color:#fff;overflow-wrap:anywhere}
+.side-peran{font-size:12px;color:rgba(255,255,255,.8)}
+body.caraka .side .nav-keluar button{width:100%}
+
+/* Tombol Menu (muncul saat menu tersembunyi) dan latar redup untuk laci */
+body.caraka .side-buka{position:fixed;z-index:2001;top:var(--side-jarak);left:var(--side-jarak);display:none;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;color:#fff;font-size:14px;font-weight:700;background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.1));border:1px solid rgba(255,255,255,.4);box-shadow:0 8px 24px rgba(50,0,0,.45),inset 0 1px 0 rgba(255,255,255,.55);-webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%)}
+.side-tirai{display:none}
+
+/* Menu disembunyikan (layar lebar) */
+body[data-menu="tersembunyi"] .side{transform:translateX(calc(-100% - var(--side-jarak) * 2));opacity:0;visibility:hidden;pointer-events:none;transition:transform .35s cubic-bezier(.34,1.2,.64,1),opacity .25s,visibility 0s linear .35s}
+body.caraka.staf[data-tata="sidebar"][data-menu="tersembunyi"] > .app-isi{margin-left:0;padding-top:64px}
+@media (min-width:900px){
+  body[data-menu="tersembunyi"] .side-buka{display:inline-flex}
+}
+
+/* Layar sempit: menu menjadi laci, tertutup secara bawaan */
+@media (max-width:899px){
+  .side{transform:translateX(calc(-100% - var(--side-jarak) * 2));opacity:0;visibility:hidden;pointer-events:none}
+  body[data-menu="terbuka"] .side{transform:none;opacity:1;visibility:visible;pointer-events:auto}
+  body.caraka .side-buka{display:inline-flex}
+  body[data-menu="terbuka"] .side-buka{display:none}
+  body[data-menu="terbuka"] .side-tirai{display:block;position:fixed;inset:0;z-index:1999;background:rgba(30,0,0,.55)}
+  body.caraka.staf[data-tata="sidebar"] > .app-isi{margin-left:0;padding-top:64px}
+}
+
+/* Cadangan: tanpa blur atau dengan preferensi kurangi transparansi */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .side,body.caraka .side-buka{background:rgba(110,16,16,.96)}
+}
+@media (prefers-reduced-transparency:reduce){
+  .side,body.caraka .side-buka{background:rgba(110,16,16,.96);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .side,.side-cair,body.caraka.staf[data-tata="sidebar"] > .app-isi{transition:none}
+}

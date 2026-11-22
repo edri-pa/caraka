@@ -25,9 +25,11 @@
         button { padding: 6px 12px; cursor: pointer; }
     </style>
 @include('partials.head-tema')
+@include('partials.head-sidebar')
 </head>
-<body class="caraka staf">
-@include('partials.navbar-staf')
+<body class="caraka staf" data-tata="sidebar">
+@include('partials.sidebar-staf')
+<div class="app-isi" id="app-isi">
 @php
     $labelStatus = [
         'baru' => 'Baru', 'diverifikasi' => 'Diverifikasi', 'ditugaskan' => 'Ditugaskan',
@@ -107,5 +109,6 @@
     @endif
 </main>
 @include('partials.versi')
+</div>
 </body>
 </html>

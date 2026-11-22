@@ -31,9 +31,11 @@
         : ($authUser->agency_id ? 'agency.'.$authUser->agency_id : '');
 @endphp
 @include('partials.head-tema')
+@include('partials.head-sidebar')
 </head>
-<body class="caraka staf" data-channel="{{ $liveChannel }}" data-incident-id="{{ $incident->id }}">
-@include('partials.navbar-staf')
+<body class="caraka staf" data-tata="sidebar" data-channel="{{ $liveChannel }}" data-incident-id="{{ $incident->id }}">
+@include('partials.sidebar-staf')
+<div class="app-isi" id="app-isi">
 @php
     $labels = [
         'baru' => 'Baru', 'diverifikasi' => 'Diverifikasi', 'ditugaskan' => 'Ditugaskan',
@@ -311,5 +313,6 @@
 })();
 </script>
 @include('partials.versi')
+</div>
 </body>
 </html>

@@ -108,7 +108,7 @@ class GlassThemeTest extends TestCase
                     ->assertOk()
                     ->assertSee('css/caraka.css', false)
                     ->assertSee('class="caraka staf"', false)
-                    ->assertSee('class="nav-kaca"', false);
+                    ->assertSee('class="side"', false);
             }
         }
 
@@ -138,7 +138,7 @@ class GlassThemeTest extends TestCase
             ->assertOk()
             ->assertSee('css/caraka.css', false)
             ->assertSee('class="caraka staf"', false)
-            ->assertSee('class="nav-kaca"', false);
+            ->assertSee('class="side"', false);
     }
 
     public function test_tombol_sos_tetap_menonjol_di_beranda_dan_navbar(): void

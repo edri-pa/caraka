@@ -29,9 +29,11 @@
         button { padding: 6px 12px; cursor: pointer; }
     </style>
 @include('partials.head-tema')
+@include('partials.head-sidebar')
 </head>
-<body class="caraka staf" data-channel="dispatch" data-signature="{{ $signature }}" data-ringkasan-url="{{ route('dispatcher.ringkasan') }}">
-@include('partials.navbar-staf')
+<body class="caraka staf" data-tata="sidebar" data-channel="dispatch" data-signature="{{ $signature }}" data-ringkasan-url="{{ route('dispatcher.ringkasan') }}">
+@include('partials.sidebar-staf')
+<div class="app-isi" id="app-isi">
 @php
     $labels = [
         'baru' => 'Baru', 'diverifikasi' => 'Diverifikasi', 'ditugaskan' => 'Ditugaskan',
@@ -175,5 +177,6 @@
 })();
 </script>
 @include('partials.versi')
+</div>
 </body>
 </html>
