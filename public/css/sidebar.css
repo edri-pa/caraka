@@ -4,7 +4,7 @@
 body.caraka.staf[data-tata="sidebar"]{padding:0;min-height:100vh}
 body.caraka.staf[data-tata="sidebar"] > .app-isi{box-sizing:border-box;max-width:none;margin:0 0 0 calc(var(--side-lebar) + var(--side-jarak) * 2);padding:20px clamp(14px,2.5vw,32px) 40px;transition:margin-left .35s cubic-bezier(.34,1.2,.64,1)}
 body.caraka.staf[data-tata="sidebar"] > .side,body.caraka.staf[data-tata="sidebar"] > .side-tirai,body.caraka.staf[data-tata="sidebar"] > .side-buka{margin:0;max-width:none}
-.app-isi > :not(main):not(script){max-width:1240px;margin-left:auto;margin-right:auto}
+.app-isi > :not(main):not(script){max-width:1680px;margin-left:auto;margin-right:auto}
 
 /* Kolom kiri */
 .side{position:fixed;z-index:2000;top:var(--side-jarak);bottom:var(--side-jarak);left:var(--side-jarak);width:var(--side-lebar);box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:22px;color:#fff;background:linear-gradient(160deg,rgba(255,255,255,.24),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.38);box-shadow:0 10px 34px rgba(50,0,0,.5),inset 0 1px 0 rgba(255,255,255,.55);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);transition:transform .35s cubic-bezier(.34,1.2,.64,1),opacity .25s,visibility 0s}

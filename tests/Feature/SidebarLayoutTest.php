@@ -159,6 +159,14 @@ class SidebarLayoutTest extends TestCase
         $this->get('/responder/tugas')->assertDontSee('class="nav-kaca"', false);
     }
 
+    public function test_lebar_isi_cukup_untuk_tabel_saat_menu_disembunyikan(): void
+    {
+        $css = file_get_contents(public_path('css/sidebar.css'));
+
+        $this->assertStringContainsString(':not(script){max-width:1680px', $css);
+        $this->assertStringNotContainsString(':not(script){max-width:1240px', $css);
+    }
+
     public function test_berkas_css_sidebar_ringan_dan_memuat_aturan_penting(): void
     {
         $css = file_get_contents(public_path('css/sidebar.css'));
